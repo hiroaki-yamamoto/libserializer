@@ -1,0 +1,12 @@
+/*!
+@mainpage libserializer
+@section wtp What this page?
+This document is an API manual of libserializer and librandomgenerator.
+@note Please accept my unusual English; I'm not a person who uses English as a native language.\n
+If you couldn't understand what this document has, please let me know IMMEDIATELY.
+@section hts How to see this document
+1. Clicking "classes" tab, you can see the entire classes in the libraries.\n
+2. Clicking the class name in the "class" tab, the members in the selected class is shown.
+@author Hiroaki Yamamoto <admin@hysoftware.net>
+@copyright The libraries are licensed by the latest version of GPL.
+*/

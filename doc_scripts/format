@@ -1,0 +1,157 @@
+/*!
+@page format_specification Format Specification
+@section IS Inside of Libserializer
+This serializer consists of 4 cases: Integer case, Float case, Boolean case, and String case. \n
+Additionary, list, vector, pair, and map are supported, derived from those cases.
+
+@section IC Integer Case
+
+@subsection PROBLEM1 Problem1: The Case of Other Serializers
+Some other serializers serialize the variable as it is.
+For example, serializing "1234", of which type is int, the serialized data will be:
+
+@verbatim
+00 00 04 d2
+@endverbatim
+
+Moreover, serializing "1234", of which type is @b long, the serialized data will be:
+
+@verbatim
+00 00 00 00 00 00 04 d2
+@endverbatim
+
+The point is un-needed bytes exist; See the bytes above 2-6 bytes. 
+The values are zero each, and the bytes are meaningless.
+
+@subsection HSI1 How to Solve It
+To shrink the bytes, we should use a variable type properly or we have to cut off the meaningless bytes.\n
+Fortunately, this serializer cuts off the bytes automatically (We call this "Numeric Detector"), so though you serialize 1234, 
+and its type is not proper, the serialized data will be:
+
+@verbatim
+04 d2
+@endverbatim
+
+@subsection PROBLEM2 Problem2: Identifying the delim.
+We could shrink the bytes, however, we can't identify where the bytes end. For example, 
+serializing 1234, of which type is int and, 48975, of which type is long, the serialized data will be the following:
+
+@verbatim
+04 d2 bf 4f
+@endverbatim
+
+In this case, It is possible to interpret 80920399. This is not expected/wanted value.
+
+@section HSI2 How to Solve It
+To avoid this problem, prepending bytes including the size of each serialized data are a good and simple way. \n
+For example, serializing 1234 and 48975, the serialized data will be:
+
+@verbatim
+02 04 d2 02 bf 4f
+@endverbatim
+
+When deserializing, serializer class reads first byte i.e. 02, and reads "02" bytes.
+In this way, serializer can deserialize the serialized data.
+
+However, If prepending the size data only, the meaningless bits exist in bool case;
+Size of Boolean is 1 byte in GCC, however, the value is:
+
+@verbatim
+0000 0001 -- if true
+0000 0000 -- if false
+@endverbatim
+
+There are un-needed bits in above 7 bits. If can we cut off the un-neccesary bits, 
+the serialized data will be more shrinked than the no-cutting off case. \n
+Fortunately, we solved the problem by replacing above @b4bits with attribute bits.\n
+The attribute bits defines if the data are boolean, the data are unsigned, 
+the data are float number, and the serialized data are string:
+
+@image html attributes.png
+
+This image corresponds to the above 4bits each: If S is specified, the above 4bits will be 0001.
+If U is specified, the above 4bits will be 1000.
+
+@note The attribute can get more than 2 states: Boolean can be interpreted as a number that is unsigned. \n
+      Therefore, the attribute have unsigned and bool states logically.
+
+Each signs means the following:
+
+@verbatim
+U: This is specified when the value is unsigned.
+B: This is specified when the value is a boolean type. U is also specified in this case.
+F: This is specified when the value is a float type.
+S: This is specified when the value is a string.
+@endverbatim
+
+To serialize the size byte, it is expressed by logical adding: @f[ A \lor S @f]
+A is the attribute byte, and S is the size of the shrinked value described above.
+Aditionally, if we let size of the data are \a n, the acutual value to be written is \a n -1.
+For example, serializing 1234, the serialized data will be the following:
+
+@verbatim
+81 04 d2 81 04 bf 4f
+@endverbatim
+
+@note The size of the data to be serialized must be less than 16 bytes. \n
+If the size of the data are more than 16 bytes, the size bits will occur overlap.\n
+Fortunately, AFAIK, at least in C99/C++0x, there are no primitive types, of which type is more than 16 bytes.
+When primitive types that has more than 16 bytes are defined in next version to C1x/C++0x, the format will be changed again.
+
+To deserialize the serialized data, at first, serializer reads 1st byte. it includes the size to read and the attributes described above.\n
+If S is specified, serializer interprets the data as a string (see @ref SC "String Case" for details.).\n
+If F is specified, serializer interprets the data as a float number (see @ref FC "Float Case" for details.). \n
+If B is specified, serializer interprets the data as a boolean type (see @ref BC "Boolean Case" for details.).\n
+If U is specified, serializer interprets the data as a unsgined type.\n
+
+@note serializer doesn't deserialize the data as an integer except U is specified or Nothing is specified.
+
+Then, serializer calculates the size to read bytes. The size data in the serialized data are encoded by @a n -1 described above.
+Threfore, the calculated size is @a m +1. @a m is the size data in the serialized data. \n
+To get it, using logical product is a simple way. Specifically, The size data in the serialized data are obtained by multiplying 0x0f logically.
+
+At last, serializer reads n bytes and assign the read bytes to the specified reference.
+
+@section FC Float Case
+In the case of a floating number, Numeric Detector touches nothing. The data will be written as a raw data. 
+However, the size byte described @ref IC "Integer Case" will be prepended. Of course, the attribute F is specified.
+
+@section BC Boolean Case
+In the case of a boolean type, the data are included in the size byte described @ref IC "Integer Case" by using logical adding.
+Additionaly, even if the value of the data is 1 or 0, of which types are not bool each, Numeric Detector interprets them as bool.\n
+
+And of course, the attribute B is specified.
+
+@section SC String Case
+In the case of a string, at first, serializer @b serializes the size byte specifying S with no size included.\n
+And then, serializer writes string while it reaches end of the string. And, serializer appends 0x00 to the written data.
+
+For example, if serializing "Hello World", the serialized data will be:
+
+@verbatim
+10 48 65 6C 6C 6F 20 57 6F 72 6C 64 00
+@endverbatim
+
+If deserializing this, serializer identify if S is specified in the size byte, then reads bytes until 0x00 is occured.\n
+To read real string part, using getline is faster than use of istream::read or istream::rdbug()->sgetn.
+
+@section STLC STL Case
+Serializing STL is similar to @ref SC "String Case". However, unlike @ref SC "String Case", serializer @b serializes number of elements, and then @b serializes the elements generally.\n
+For example, in the case of serializing vector<int> v={1,2,3,4,5}, the serialized data is the following:
+
+@verbatim
+84 80 01 80 03 80 05
+@endverbatim
+
+Exceptionally, serializer doesn't serialize the number of elements when serializing pair<S,T>, because we can know the number before deserializing: 2.
+If serializing pair<int,string>={0,"Hello World"}, the serialized data is the following:
+
+@verbatim
+80 00 10 48 65 6C 6C 6F 20 57 6F 72 6C 64 00
+@endverbatim
+
+In the case of map<S,T> we can interpret it list<pair<S,T>> or vector<pair<S,T>>. Therefore, serializer interprets map<S,T> as list<pair<S,T>> or vector<pair<S,T>>.
+
+@section BO Byte Order
+Serializer serializes the data in big endian.
+*/

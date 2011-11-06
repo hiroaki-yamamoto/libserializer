@@ -1,0 +1,111 @@
+/*!
+@page htu How to Use libserializer
+This page describes how to serialize variables, examples included.
+
+@section hi How to Initialize serializer
+Before initializing serializer, we need to construct a stream, and the serializer relates to the cunstructed stream.
+For example, if serializing variables into a file, the code will be:
+@code
+#include <fstream>
+#include <serializer.h>
+using namespace std;
+//Omitted.
+ofstream test("test.dat",ios::out|ios::binary);
+//Constructs serializer relating to test
+serializer s(test);
+//bla bla bla...
+@endcode
+
+If serializing variables into NetworkStream, the code will be:
+@code
+#include "network.h" //Or some other network stream. we assume NetworkStream inheriting iostream exists in network namespace.
+#include <serializer.h>
+using namespace network;
+//Omitted.
+NetworkStream n("::1",1023);
+serializer s(n);
+//bla bla bla...
+@endcode
+
+Maybe, as you think, variables can be serialized into the class inheriting ostream.
+
+@section hs How to Serialize Variables
+The way to serialize variables is very easy:
+@code
+#include <fstream>
+#include <limits>
+#include <string>
+#include <serializer.h>
+using namespace std;
+//Omited.
+//Prepares serializing.
+ofstream test("test.dat",ios::binary);
+serializer s(test);
+//Initializes variables.
+int a=65534,b=numeric_limits<__typeof(b)>::min();
+string str="Hello World";
+//Serializes variabels.
+s<<a;
+s<<b;
+s<<str;
+//Of course, you can serialize the variable like this:
+//s<<a<<b<<str;
+//Removes the relation.
+s.close();
+test.close();
+//bla bla bla...
+@endcode
+@warning Don't include "\0" in string type, or serialization will not work correctly.
+@subsection hsslt How to Serialize STL
+libserializer can also serialize STL types. the supported STL types are vector, list, pair, and map.\n
+Additionally, the way to serialize them is the same as primitive types:
+@code
+#include <fstream>
+#include <list>
+#include <vector>
+#include <pair>
+#include <map>
+#include <string>
+#include <serializer.h>
+using namespace std;
+//Omitted.
+ofstream test("test.dat",ios::binary);
+serializer s(test);
+vector<int> a;
+list<int> b;
+pair<char,int> c;
+map<int,string> d;
+
+for(int i=0;i<500;i++){
+    a.push_back(i);
+    b.push_back(i-100);
+    d[i]=string("test");
+}
+c.first='t';
+c.second=256;
+
+s<<a<<b<<c<<d;
+
+s.close();
+test.close();
+//bla bla bla...
+@endcode
+
+@section hds How to Deserialize Variables
+Deserializing variables is also very easy. 
+For example, when deserializing the serialized data, using above code (not STL one),
+the code will be:
+@code
+#include <fstream>
+#include <serialize.h>
+using namespace std;
+//omitted
+ifstream in("test.dat",ios::binary);
+serializer s(in);
+int a,b;
+string str;
+s>>a>>b>>str;
+//bla bla bla
+@endcode
+Of course, you can deserialize the serialized data to STL variables by using the same way as above.
+*/

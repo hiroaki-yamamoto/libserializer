@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8)
 project(serializer CXX)
 
 find_package(Doxygen COMPONENTS)
-
 option(WITHOUT_UNIX_MODE "Builds without unix mode." OFF)
 option(BUILD_TEST "Builds test program." OFF)
 option(GENERATE_DOC "Generates the documents of the libraries." OFF)
@@ -12,11 +11,13 @@ if(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 
 if(GENERATE_DOC)
-    message("Document generation has been enabled.")
+    message(STATUS "Document generation has been enabled.")
     add_custom_command(
         OUTPUT doc
+        DEPENDS doxygen.cfg doc_scripts/example doc_scripts/format doc_scripts/mainpage libserializer/serializer.h
         COMMAND ${DOXYGEN_EXECUTABLE} ARGS doxygen.cfg
-        COMMAND mv doc ${CMAKE_BINARY_DIR}
+        COMMAND rm ARGS -rf ${CMAKE_BINARY_DIR}/doc
+        COMMAND mv ARGS doc ${CMAKE_BINARY_DIR}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMENT "Generating the document."
     )

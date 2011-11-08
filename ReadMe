@@ -1,0 +1,43 @@
+ReadMe
+======
+What this document?
+This document describes how to build SimpleSerializer and its document.
+
+Dependencies:
+Before building, you must install the following on your PC:
+*)cmake
+*)doxygen
+*)GCC including g++ and OpenMP.
+
+Probably, you can get them by using a package manager on your Linux/Unix System.
+If you are using Windows, you can use MinGW or MinGW-w64. However, I can't support windows cases.
+
+How to build:
+1) Open your favorite terminal and cd into the source directory of this library.
+2) Make a directory named "build" and cd into it.
+3) Type "cmake -DCMAKE_BUILD_TYPE=Release ..". You can use the following option:
+
+    WITHOUT_UNIX_MODE
+        If this option is set to true, the building process is go on Non-Unix mode. By default, it is false.
+        The difference is only time stump on testing: Unix mode gets micro-seconds, Non-Unix mode uses time(NULL).
+    BUILD_TEST
+        If this option is set to true, the building process builds a test executable file. By default, it is false.
+        If you set this option to true, the building takes time.
+    GENERATE_DOC
+        If this option is set to true, the building process generates the document of this library. By default, it is true if doxygen is found, false otherwise.
+    STATIC
+        This option is only used for building test. If this option is set to true, the test executable is build statically. By default, it is false.
+        
+You can use other CMake option.
+
+4) Type "make" the process will be done automatically. Of course, you can use parallelized make. i.e. make -jN
+5) Type "make DESTDIR=to_install install". to_install is a directory to install SimpleSerializer.
+
+That's all done.
+
+If you found bug:
+If you found bug, please let me know:
+
+Hiroaki Yamamoto
+admin AtMark hysoftware.net
+http://hysoftware.net/

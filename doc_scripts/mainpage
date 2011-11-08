@@ -1,7 +1,7 @@
 /*!
 @mainpage libserializer
 @section wtp What this page?
-This document is an API manual of libserializer and librandomgenerator.
+This document is an API manual of libserializer.
 @note Please accept my unusual English; I'm not a person who uses English as a native language.\n
 If you couldn't understand what this document has, please let me know IMMEDIATELY.
 @section hts How to see this document

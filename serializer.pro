@@ -12,4 +12,5 @@ serializer_test.depends += libserializer librandomgenerator codegen
 OTHER_FILES += CMakeLists.txt \
                doxygen.cfg \
                doxygen_mainpage \
-               specification.odt
+               specification.odt \
+               ReadMe

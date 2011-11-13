@@ -19,5 +19,5 @@ install(TARGETS serializer serializer-st
         RUNTIME DESTINATION "bin"
         LIBRARY DESTINATION "lib"
         ARCHIVE DESTINATION "lib")
-install(FILES "serializer.h" "endian_detector.h" "definitions.h" "numeric_detector.h" DESTINATION "include")
+install(FILES "serializer.h" "endian_detector.h" "definitions.h" "numeric_detector.h" DESTINATION "include/libserializer")
 install(EXPORT libserializer NAMESPACE serializer_lib DESTINATION share/cmake/Modules FILE Findlibserializer.cmake)

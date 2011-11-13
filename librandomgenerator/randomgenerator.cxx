@@ -9,7 +9,7 @@ using namespace std;
 randomgenerator::randomgenerator(const string map, const size_t size){
     this->_max=size;
     this->_map=map;
-    this->generator=new mt19937(time(NULL));
+    this->generator=new mt19937(time(nullptr));
 }
 
 randomgenerator::~randomgenerator(){delete this->generator;}

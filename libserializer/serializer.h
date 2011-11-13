@@ -179,10 +179,24 @@ class serializer:virtual public serializer_interface{
           Deserializes the data to primivive type.
           @param "typename T" The type of T.
           @param T& The variable to store the deserialized data.
-          @return (*this) after deserializing.
-          @see operator<<(const T)
+          @return (*this) after serializing.
+          @see operator<<(const T&)
          */
         template<typename T> serializer& operator>>(T &);
+        /*!
+          Serializes the input array.
+          This member function serializes "Static Array". i.e. T[].
+          @param "typename T" The type of ref
+          @param "ref" The reference of array to be serialized.
+          @return (*this) after serializing.
+          @see operator<<(const T&)
+          @see operator<<(const list<T> &lst)
+          @see operator<<(const vectort<T> &lst)
+         */
+        template <typename T> serializer& operator<<(const T ref[]){
+            this->writeArray(ref,sizeof(ref)/sizeof(ref[0]));
+            return (*this);
+        }
         /*!
           Serializes STL list.
           This member function consists of a foreach loop that calls operator<<(const T).\n
@@ -190,12 +204,11 @@ class serializer:virtual public serializer_interface{
           @param "class T" Type of the class.
           @param "lst" The list that has (a) element(s) of which type is "class T".
           @return (*this) after serializing.
-          @see operator<<(const T)
+          @see operator<<(const T&)
           @see operator>>(list<T> &lst)
         */
         template<class T> serializer& operator<<(const list<T> &lst){
-            (*this)<<lst.size();
-            for(const T value:lst) (*this)<<value;
+            this->writeArray(lst,lst.size());
             return (*this);
         }
         /*!
@@ -205,12 +218,11 @@ class serializer:virtual public serializer_interface{
           @param "class T" Type of the class.
           @param "v" The vector that has (a) element(s) of which type is "class T".
           @return (*this) after serializing.
-          @see operator<<(const T)
+          @see operator<<(const T&)
           @see operator>>(vector<T> &lst)
          */
         template<class T> serializer& operator<<(const vector<T> &v){
-            (*this)<<v.size();
-            for(const T value:v) (*this)<<value;
+            this->writeArray(v,v.size());
             return (*this);
         }
         /*!
@@ -221,7 +233,7 @@ class serializer:virtual public serializer_interface{
           @param "class T" Value type of the pair.
           @param "p" The pair to serialize.
           @return (*this) after serializing.
-          @see operator<<(const T)
+          @see operator<<(const T&)
           @see operator>>(pair<S,T> &p)
          */
         template<class S,class T> serializer& operator<<(const pair<S,T> &p){return (*this)<<p.first<<p.second;}
@@ -237,8 +249,22 @@ class serializer:virtual public serializer_interface{
           @see operator>>(map<S,T> &m)
          */
         template<class S,class T> serializer& operator<<(const map<S,T> &m){
-            (*this)<<m.size();
-            for(auto value:m) (*this)<<value;
+            this->writeArray(m,m.size());
+            return (*this);
+        }
+        /*!
+          Deserializes the input array.
+          This member function calls operator>>(T &) multiple times, using for-loop.
+          Therefore, if you want to deserialize the data into array of which type is MyClass, operator>>(MyClass &) must be inplemented.
+          @param array The array into which the deserialized data are input.
+          @param "class T" Type of array
+          @see operator<<(const T [])
+          @see operator>>(T &)
+         */
+        template <class T> serializer& operator>>(const T array[]){
+            size_t size;
+            (*this)>>size;
+            for(size_t counter=0;counter<size;counter++) (*this)>>array[counter];
             return (*this);
         }
         /*!
@@ -252,13 +278,7 @@ class serializer:virtual public serializer_interface{
           @see operator<<(const list<T> &lst)
          */
         template<class T> serializer& operator>>(list<T> &lst){
-            size_t size;
-            (*this)>>size;
-            for(size_t counter=0;counter<size;counter++){
-                T buf;
-                (*this)>>buf;
-                lst.push_back(buf);
-            }
+            this->readArray(lst);
             return (*this);
         }
         /*!
@@ -272,14 +292,7 @@ class serializer:virtual public serializer_interface{
           @see operator<<(const vector<T> &v)
          */
         template<class T> serializer& operator>>(vector<T> &v){
-            size_t size;
-            (*this)>>size;
-            stringstream s;
-            for(size_t counter=0;counter<size;counter++){
-                T buf;
-                (*this)>>buf;
-                v.push_back(buf);
-            }
+            this->readArray(v);
             return (*this);
         }
         /*!
@@ -316,4 +329,17 @@ class serializer:virtual public serializer_interface{
         }
     private:
         Endian endian;
+        template<class S,class T> void writeArray(const T &array,const S &size){
+            (*this)<<size;
+            for(auto value:array) (*this)<<value;
+        }
+        template<class T> void readArray(T &array){
+            size_t size;
+            (*this)>>size;
+            for(size_t counter=0;counter<size;counter++){
+                typename T::value_type value;
+                (*this)>>value;
+                array.push_back(value);
+            }
+        }
 } typedef Serializer;

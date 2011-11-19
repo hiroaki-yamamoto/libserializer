@@ -132,7 +132,9 @@ class serializer:virtual public serializer_interface{
         /*!
           Serializes string.
           @param "const string" String to serialize.
+          @warning Don't include \\0 in the string, or deserializing will not work properly. \n
           @return (*this) after serializing.
+          @see operator<<(const T[])
           @see operator>>(string &)
          */
         serializer& operator<<(const string &);
@@ -318,13 +320,7 @@ class serializer:virtual public serializer_interface{
           @see operator<<(const map<S,T> &m)
          */
         template<class S,class T> serializer& operator>>(map<S,T> &m){
-            size_t size;
-            (*this)>>size;
-            for(size_t counter=0;counter<size;counter++){
-                pair<S,T> el;
-                (*this)>>el;
-                m.insert(el);
-            }
+            this->readArray(m);
             return (*this);
         }
     private:
@@ -339,7 +335,7 @@ class serializer:virtual public serializer_interface{
             for(size_t counter=0;counter<size;counter++){
                 typename T::value_type value;
                 (*this)>>value;
-                array.push_back(value);
+                array.insert(array.end(),value);
             }
         }
 } typedef Serializer;

@@ -320,7 +320,7 @@ class serializer:virtual public serializer_interface{
           @see operator<<(const map<S,T> &m)
          */
         template<class S,class T> serializer& operator>>(map<S,T> &m){
-            this->readArray(m);
+            this->readMap(m);
             return (*this);
         }
     private:
@@ -336,6 +336,15 @@ class serializer:virtual public serializer_interface{
                 typename T::value_type value;
                 (*this)>>value;
                 array.insert(array.end(),value);
+            }
+        }
+        template <class S,class T> void readMap(map<S,T> &ref){
+            size_t size;
+            (*this)>>size;
+            for(size_t counter=0;counter<size;counter++){
+                pair<S,T> value;
+                (*this)>>value;
+                ref.insert(value);
             }
         }
 } typedef Serializer;

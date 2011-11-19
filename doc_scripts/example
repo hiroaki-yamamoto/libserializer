@@ -7,7 +7,7 @@ Before initializing serializer, we need to construct a stream, and the serialize
 For example, if serializing variables into a file, the code will be:
 @code
 #include <fstream>
-#include <serializer>
+#include <serializer.h>
 using namespace std;
 //Omitted.
 ofstream test("test.dat",ios::out|ios::binary);
@@ -19,7 +19,7 @@ serializer s(test);
 If serializing variables into NetworkStream, the code will be:
 @code
 #include "network.h" //Or some other network stream. we assume NetworkStream inheriting iostream exists in network namespace.
-#include <serializer>
+#include <serializer.h>
 using namespace network;
 //Omitted.
 NetworkStream n("::1",1023);
@@ -35,7 +35,7 @@ The way to serialize variables is very easy:
 #include <fstream>
 #include <limits>
 #include <string>
-#include <serializer>
+#include <serializer.h>
 using namespace std;
 //Omited.
 //Prepares serializing.
@@ -55,7 +55,7 @@ s.close();
 test.close();
 //bla bla bla...
 @endcode
-@warning Don't include "\0" in string type, or serialization will not work correctly.
+@warning Don't include "\0" in string type, or deserializing will not work correctly.
 @subsection hsslt How to Serialize STL
 libserializer can also serialize STL types. the supported STL types are vector, list, pair, and map.\n
 Additionally, the way to serialize them is the same as primitive types:
@@ -66,7 +66,7 @@ Additionally, the way to serialize them is the same as primitive types:
 #include <pair>
 #include <map>
 #include <string>
-#include <serializer>
+#include <serializer.h>
 using namespace std;
 //Omitted.
 ofstream test("test.dat",ios::binary);
@@ -97,7 +97,7 @@ For example, when deserializing the serialized data, using above code (not STL o
 the code will be:
 @code
 #include <fstream>
-#include <serialize.h>
+#include <serializer.h>
 using namespace std;
 //omitted
 ifstream in("test.dat",ios::binary);

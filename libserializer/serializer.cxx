@@ -49,9 +49,15 @@ bool serializer_interface::close(){
     return true;
 }
 
-serializer::serializer(istream &in):serializer_interface(in){this->endian=getEndian();}
-serializer::serializer(ostream &out):serializer_interface(out){this->endian=getEndian();}
-serializer::serializer(iostream &io):serializer_interface(io){this->endian=getEndian();}
+serializer::serializer(istream &in):serializer_interface(in){this->init();}
+serializer::serializer(ostream &out):serializer_interface(out){this->init();}
+serializer::serializer(iostream &io):serializer_interface(io){this->init();}
+void serializer::init(){
+    this->endian=getEndian();
+    this->buffer_size=sizeof(long double)+1;
+    this->buffer=new char[this->buffer_size];
+}
+serializer::~serializer(){delete []this->buffer;}
 /*
   Implementation of serializer
  */
@@ -61,49 +67,41 @@ template<typename T> serializer& serializer::operator<<(const T &value){
     unsigned char value_type=NONE;
     numeric_detector<T> detector(value);
     value_type=detector.properly_type();
-    this->_out->put((char)value_type);
+    this->buffer[0]=(char)value_type;
     if(!isBool(value_type)){
         switch(this->endian){
             case Endian::big:
-                copy((char*)detector.start(),(char*)detector.end(),
-                     ostream_iterator<char>(*this->_out));
+                copy((char*)detector.start(),(char*)detector.end(),this->buffer+1);
                 break;
             case Endian::little:
-                reverse_copy((char*)detector.start(),(char*)detector.end(),
-                             ostream_iterator<char>(*this->_out));
+                reverse_copy((char*)detector.start(),(char*)detector.end(),this->buffer+1);
                 break;
             default:
                 throw logic_error("Not supported endian.");
         }
     }
+    this->_out->write(this->buffer,detector.properly_size()+1);
     return (*this);
 }
 template<typename T> serializer& serializer::operator>>(T &ref){
-    READABLE_REQUIRED;
-    unsigned char type;
-    if(this->avail()<sizeof(type)) THROW_WILL_REACHED_END;
-    type=this->_in->get();
-    if(is_str(type)) THROW_INVALID;
+    this->_in->read(this->buffer,this->buffer_size);
+    if(is_str(this->buffer[0])) THROW_INVALID;
     bool boolbuf;
-    if(bool_value(type,&boolbuf)){
+    if(bool_value(this->buffer[0],&boolbuf)){
         ref=boolbuf;
+        this->_in->seekg(-this->buffer_size+1,ios_base::cur);
         return (*this);
     }
-    if(((((type&0xf0)|UNSIGNED)^UNSIGNED)==FLOATING&&(!numeric_limits<T>::is_iec559))||((((type&0xf0)|UNSIGNED)^UNSIGNED)!=FLOATING&&(numeric_limits<T>::is_iec559)))THROW_INVALID;
-    
-    size_t size;
-    size=properly_size(type);
-    if(sizeof(ref)<size) THROW_OVERFLOW;
-    if(this->avail()<size) THROW_WILL_REACHED_END;
+    if(((((this->buffer[0]&0xf0)|UNSIGNED)^UNSIGNED)==FLOATING&&(!numeric_limits<T>::is_iec559))||((((this->buffer[0]&0xf0)|UNSIGNED)^UNSIGNED)!=FLOATING&&(numeric_limits<T>::is_iec559)))THROW_INVALID;
+    size_t size=properly_size((unsigned char)this->buffer[0]);
+    this->_in->seekg(-this->buffer_size+1+size,ios_base::cur);
     ref=0;
-    char buf[size];
-    if(!this->_in->read(buf,size)) THROW_INVALID;
     switch(this->endian){
         case Endian::little:
-            reverse_copy(buf,buf+size,(char*)&ref);
+            reverse_copy(this->buffer+1,this->buffer+1+size,(char*)&ref);
             break;
         case Endian::big:
-            copy_backward(buf,buf+size,(char*)((&ref)+1));
+            copy_backward(this->buffer+1,this->buffer+1+size,(char*)((&ref)+1));
             break;
         default:
             throw logic_error("Not supported endian.");

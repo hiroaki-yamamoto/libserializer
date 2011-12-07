@@ -130,6 +130,10 @@ class serializer:virtual public serializer_interface{
          */
         serializer(iostream &);
         /*!
+          Destructs serializer.
+         */
+        ~serializer();
+        /*!
           Serializes string.
           @param "const string" String to serialize.
           @warning Don't include \\0 in the string, or deserializing will not work properly. \n
@@ -325,6 +329,9 @@ class serializer:virtual public serializer_interface{
         }
     private:
         Endian endian;
+        size_t buffer_size;
+        char *buffer;
+        void init();
         template<class S,class T> void writeArray(const T &array,const S &size){
             (*this)<<size;
             for(auto value:array) (*this)<<value;

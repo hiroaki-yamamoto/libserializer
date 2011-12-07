@@ -8,6 +8,7 @@ include_directories(AFTER "${serializer_test_BINARY_DIR}/generated" ${serializer
 file(MAKE_DIRECTORY ${codegen_working_dir})
 
 option(STATIC "Build test program statically." OFF)
+option(SHOW_TIMEDIFF "Show Time Difference." OFF)
 
 cxx_name()
 header_name()
@@ -43,6 +44,13 @@ else(STATIC)
     target_link_libraries(serializer_test serializer randomgenerator)
     message(STATUS "The test program will linked dinamically.")
 endif(STATIC)
+
+if(SHOW_TIMEDIFF)
+    add_definitions(-DSHOW_TIMEDIFF)
+    message(STATUS "Showing time difference is enabled.")
+else(SHOW_TIMEDIFF)
+    message(STATUS "Showing time difference is not enabled.")
+endif(SHOW_TIMEDIFF)
 
 export(TARGETS serializer_test NAMESPACE test FILE serializer_test-config.cmake)
 export(PACKAGE serializer_test)

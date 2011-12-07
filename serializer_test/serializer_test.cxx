@@ -24,8 +24,10 @@ int main(){
         cout<<"Writing test"<<endl;
         write_test(start,end);
         end-=start;
+#ifdef SHOW_TIMEDIFF
         cout<<"Time diff. :"<<endl;
         cout<<end<<endl;
+#endif
         cout<<"Writing time:"<<end.sum()<<" sec."<<endl;
         
         start.clear();
@@ -34,8 +36,10 @@ int main(){
         cout<<"Reading test"<<endl;
         read_test(start,end);
         end-=start;
+#ifdef SHOW_TIMEDIFF
         cout<<"Time diff. :"<<endl;
         cout<<end<<endl;
+#endif
         cout<<"Reading time:"<<end.sum()<<" sec."<<endl;
     }catch(const exception e){
         cout<<e.what()<<endl;

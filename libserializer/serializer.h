@@ -5,16 +5,15 @@
 #include<map>
 #include<unordered_map>
 #include<sstream>
+#include<cassert>
 
 #include "endian_detector.h"
-#include "definitions.h"
 #include "numeric_detector.h"
 
-#define WRITABLE_REQUIRED if(this->_out==nullptr) THROW_NO_WRITABLE_ATTRIBUTE
-#define READABLE_REQUIRED if(this->_in==nullptr) THROW_NO_READABLE_ATTRIBUTE
+#define WRITABLE_REQUIRED assert(this->_out!=nullptr)
+#define READABLE_REQUIRED assert(this->_in!=nullptr)
 
 using namespace std;
-using namespace defs;
 
 /*!
   The basis of Serializer.

@@ -3,7 +3,6 @@ TARGET = libserializer
 INCLUDEPATH = .
 
 HEADERS = \
-    definitions.h \
     endian_detector.h \
     numeric_detector.h \
     serializer.h
@@ -14,6 +13,7 @@ SOURCES = \
     numeric_detector.cxx
 
 OTHER_FILES = CMakeLists.txt
+
 
 
 

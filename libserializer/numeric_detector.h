@@ -51,3 +51,4 @@ inline bool bool_value(const unsigned char type,bool *to){
     return true;
 }
 inline bool is_str(const unsigned char type){return (type&0xf0)==STRING;}
+inline bool is_float(const unsigned char type){return (((type&0xf0)|UNSIGNED)^UNSIGNED)==FLOATING;}

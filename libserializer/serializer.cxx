@@ -10,7 +10,7 @@
     #include<fstream>
 #endif
 using namespace std;
-using namespace defs;
+//using namespace defs;
 
 /*
   Implementation of serializer_interface
@@ -84,15 +84,17 @@ template<typename T> serializer& serializer::operator<<(const T &value){
     return (*this);
 }
 template<typename T> serializer& serializer::operator>>(T &ref){
+    READABLE_REQUIRED;
+    assert(this->avail()>0);
     this->_in->read(this->buffer,this->buffer_size);
-    if(is_str(this->buffer[0])) THROW_INVALID;
+    assert(!is_str(this->buffer[0]));
     bool boolbuf;
     if(bool_value(this->buffer[0],&boolbuf)){
         ref=boolbuf;
         this->_in->seekg(-this->buffer_size+1,ios_base::cur);
         return (*this);
     }
-    if(((((this->buffer[0]&0xf0)|UNSIGNED)^UNSIGNED)==FLOATING&&(!numeric_limits<T>::is_iec559))||((((this->buffer[0]&0xf0)|UNSIGNED)^UNSIGNED)!=FLOATING&&(numeric_limits<T>::is_iec559)))THROW_INVALID;
+    assert((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer));
     size_t size=properly_size((unsigned char)this->buffer[0]);
     this->_in->seekg(-this->buffer_size+1+size,ios_base::cur);
     ref=0;
@@ -116,7 +118,7 @@ serializer& serializer::operator<<(const string &s){
 }
 
 serializer& serializer::operator>>(string &str){
-    if(!is_str(this->_in->get()))THROW_INVALID;
+    assert(is_str(this->_in->get()));
     getline(*this->_in,str,'\0');
     return (*this);
 }

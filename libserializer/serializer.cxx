@@ -10,7 +10,6 @@
     #include<fstream>
 #endif
 using namespace std;
-//using namespace defs;
 
 /*
   Implementation of serializer_interface

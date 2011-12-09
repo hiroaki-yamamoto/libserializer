@@ -14,7 +14,18 @@ cxx_name()
 header_name()
 
 add_custom_command(
-    OUTPUT ${source_files} ${header_files}
+    OUTPUT 
+        ${write_raw_test_source}
+        ${write_lst_test_source}
+        ${write_vec_test_source}
+        ${write_map_test_source}
+        ${write_test_source}
+        ${read_raw_test_source}
+        ${read_lst_test_source}
+        ${read_vec_test_source}
+        ${read_map_test_source}
+        ${read_test_source}
+        ${header_files}
     COMMAND codegen
     DEPENDS codegen
     COMMENT "Generating test source codes."
@@ -23,24 +34,53 @@ add_custom_command(
 
 add_custom_target(
     test 
-    DEPENDS  ${source_files} ${header_files}
+    DEPENDS  
+        ${write_raw_test_source}
+        ${write_lst_test_source}
+        ${write_vec_test_source}
+        ${write_map_test_source}
+        ${write_test_source}
+        ${read_raw_test_source}
+        ${read_lst_test_source}
+        ${read_vec_test_source}
+        ${read_map_test_source}
+        ${read_test_source}
+        ${header_files}
     WORKING_DIRECTORY ${codegen_working_dir}
 )
 
 
+add_library(write_raw_test SHARED ${write_raw_test_source})
+add_library(write_lst_test SHARED ${write_lst_test_source})
+add_library(write_vec_test SHARED ${write_vec_test_source})
+add_library(write_map_test SHARED ${write_map_test_source})
+
+add_library(read_raw_test SHARED ${read_raw_test_source})
+add_library(read_lst_test SHARED ${read_lst_test_source})
+add_library(read_vec_test SHARED ${read_vec_test_source})
+add_library(read_map_test SHARED ${read_map_test_source})
+
+add_library(write_test SHARED ${write_test_source})
+add_library(read_test SHARED ${read_test_source})
+
+add_dependencies(write_test test)
+add_dependencies(read_test test)
+
+target_link_libraries(write_test write_raw_test write_lst_test write_vec_test write_map_test)
+target_link_libraries(read_test read_raw_test read_lst_test read_vec_test read_map_test)
+
 add_executable(serializer_test
-    ${source_files}
     time_array.cxx
     tab_count.cxx
     serializer_test.cxx
 )
 
+target_link_libraries(serializer_test write_test read_test)
+
 if(STATIC)
-    add_dependencies(serializer_test serializer-st randomgenerator-st test)
     target_link_libraries(serializer_test serializer-st randomgenerator-st)
     message(STATUS "The test program will linked statically.")
 else(STATIC)
-    add_dependencies(serializer_test serializer randomgenerator test)
     target_link_libraries(serializer_test serializer randomgenerator)
     message(STATUS "The test program will linked dinamically.")
 endif(STATIC)

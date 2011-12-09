@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cassert>
-#include "serializer.h"
-#include "endian_detector.h"
 #include <iterator>
 #include <algorithm>
 #include <limits>
+#include "serializer.h"
+#include "endian_detector.h"
 #ifdef DEBUG_SERIALIZER
     #include<typeinfo>
     #include<fstream>
@@ -95,7 +95,7 @@ template<typename T> serializer& serializer::operator>>(T &ref){
     }
     assert((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer));
     size_t size=properly_size((unsigned char)this->buffer[0]);
-    this->_in->seekg(-this->buffer_size+1+size,ios_base::cur);
+    this->_in->seekg(1+size-this->buffer_size,ios_base::cur);
     ref=0;
     switch(this->endian){
         case Endian::little:
@@ -117,7 +117,12 @@ serializer& serializer::operator<<(const string &s){
 }
 
 serializer& serializer::operator>>(string &str){
-    assert(is_str(this->_in->get()));
+    /*this->_in->read(this->buffer,1);
+    assert(is_str(*this->buffer));*/
+    assert(is_str((unsigned char)this->_in->get())&&!*(this->_in));
+#ifdef DEBUG_SERIALIZER
+    cout<<this->_in->tellg();
+#endif
     getline(*this->_in,str,'\0');
     return (*this);
 }

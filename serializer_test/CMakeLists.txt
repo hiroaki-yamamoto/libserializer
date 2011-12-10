@@ -49,39 +49,74 @@ add_custom_target(
     WORKING_DIRECTORY ${codegen_working_dir}
 )
 
-
-add_library(write_raw_test SHARED ${write_raw_test_source})
-add_library(write_lst_test SHARED ${write_lst_test_source})
-add_library(write_vec_test SHARED ${write_vec_test_source})
-add_library(write_map_test SHARED ${write_map_test_source})
-
-add_library(read_raw_test SHARED ${read_raw_test_source})
-add_library(read_lst_test SHARED ${read_lst_test_source})
-add_library(read_vec_test SHARED ${read_vec_test_source})
-add_library(read_map_test SHARED ${read_map_test_source})
-
-add_library(write_test SHARED ${write_test_source})
-add_library(read_test SHARED ${read_test_source})
-
-add_dependencies(write_test test)
-add_dependencies(read_test test)
-
-target_link_libraries(write_test write_raw_test write_lst_test write_vec_test write_map_test)
-target_link_libraries(read_test read_raw_test read_lst_test read_vec_test read_map_test)
-
 add_executable(serializer_test
     time_array.cxx
     tab_count.cxx
     serializer_test.cxx
 )
 
-target_link_libraries(serializer_test write_test read_test)
-
 if(STATIC)
-    target_link_libraries(serializer_test serializer-st randomgenerator-st)
+    add_library(write_raw_test STATIC ${write_raw_test_source})
+    add_library(write_lst_test STATIC ${write_lst_test_source})
+    add_library(write_vec_test STATIC ${write_vec_test_source})
+    add_library(write_map_test STATIC ${write_map_test_source})
+    
+    add_library(read_raw_test STATIC ${read_raw_test_source})
+    add_library(read_lst_test STATIC ${read_lst_test_source})
+    add_library(read_vec_test STATIC ${read_vec_test_source})
+    add_library(read_map_test STATIC ${read_map_test_source})
+    
+    add_library(write_test STATIC ${write_test_source})
+    add_library(read_test STATIC ${read_test_source})
+
+    add_dependencies(write_test test)
+    add_dependencies(read_test test)
+    
+    target_link_libraries(write_test write_raw_test write_lst_test write_vec_test write_map_test)
+    target_link_libraries(read_test read_raw_test read_lst_test read_vec_test read_map_test)
+
+    target_link_libraries(serializer_test serializer-st randomgenerator-st write_test read_test)
+    install(
+        TARGETS
+            write_raw_test write_lst_test write_vec_test write_map_test write_test
+            read_raw_test read_lst_test read_vec_test read_map_test read_test
+        EXPORT  libserializer_testing_program
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+    )
     message(STATUS "The test program will linked statically.")
 else(STATIC)
-    target_link_libraries(serializer_test serializer randomgenerator)
+    add_library(write_raw_test SHARED ${write_raw_test_source})
+    add_library(write_lst_test SHARED ${write_lst_test_source})
+    add_library(write_vec_test SHARED ${write_vec_test_source})
+    add_library(write_map_test SHARED ${write_map_test_source})
+    
+    add_library(read_raw_test SHARED ${read_raw_test_source})
+    add_library(read_lst_test SHARED ${read_lst_test_source})
+    add_library(read_vec_test SHARED ${read_vec_test_source})
+    add_library(read_map_test SHARED ${read_map_test_source})
+    
+    add_library(write_test SHARED ${write_test_source})
+    add_library(read_test SHARED ${read_test_source})
+
+    add_dependencies(write_test test)
+    add_dependencies(read_test test)
+    
+    target_link_libraries(write_test write_raw_test write_lst_test write_vec_test write_map_test)
+    target_link_libraries(read_test read_raw_test read_lst_test read_vec_test read_map_test)
+
+    target_link_libraries(serializer_test write_test read_test serializer randomgenerator)
+
+    install(
+        TARGETS
+            serializer_test write_raw_test write_lst_test write_vec_test write_map_test write_test
+            read_raw_test read_lst_test read_vec_test read_map_test read_test
+        EXPORT  libserializer_testing_program
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+    )
     message(STATUS "The test program will linked dinamically.")
 endif(STATIC)
 
@@ -95,9 +130,9 @@ endif(SHOW_TIMEDIFF)
 export(TARGETS serializer_test NAMESPACE test FILE serializer_test-config.cmake)
 export(PACKAGE serializer_test)
 
-install(TARGETS serializer_test
-        EXPORT  libserializer_testing_program
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
-install(EXPORT libserializer_testing_program NAMESPACE serializer_bin DESTINATION share/cmake/Modules FILE Findserializer_test.cmake)
+install(
+    EXPORT libserializer_testing_program 
+    NAMESPACE serializer_bin 
+    DESTINATION share/cmake/Modules 
+    FILE Findserializer_test.cmake
+)

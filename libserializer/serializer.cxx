@@ -107,22 +107,25 @@ template<typename T> serializer& serializer::operator>>(T &ref){
         default:
             throw logic_error("Not supported endian.");
     }
+#ifdef DEBUG_SERIALIZER
+    cout<<ref<<endl;
+#endif
     return (*this);
 }
 
 serializer& serializer::operator<<(const string &s){
+    READABLE_REQUIRED;
     this->_out->put(STRING);
     (*this->_out)<<s<<'\0';
     return (*this);
 }
 
 serializer& serializer::operator>>(string &str){
-    /*this->_in->read(this->buffer,1);
-    assert(is_str(*this->buffer));*/
-    assert(is_str((unsigned char)this->_in->get())&&!*(this->_in));
-#ifdef DEBUG_SERIALIZER
-    cout<<this->_in->tellg();
-#endif
+    READABLE_REQUIRED;
+    //I'm not sure if it is a bug that the pointer of istream is not incremented when using this->_in->get().
+    //However this is fact that I should provide the alternative. Instead, I use this->_in->read(char_type*,streamsize).
+    this->_in->read(this->buffer,1);
+    assert(this->_in->good()&&this->avail()>0&&is_str((unsigned char)this->buffer[0]));
     getline(*this->_in,str,'\0');
     return (*this);
 }

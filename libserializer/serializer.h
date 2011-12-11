@@ -88,12 +88,9 @@ class serializer_interface{
           @throw logic_error throws this exception if this->_in is nullptr.
         */
         size_t size();
-        /*!
-          Returns unread byte size of the istream.
-          @return unread byte size of istream related to this class.
-          @throw logic_error throws this exception if this->_in is nullptr.
-         */
-        size_t avail();
+    private:
+        void setSize();
+        size_t _size;
 };
 /*!
   You can serialize various types by using this class.

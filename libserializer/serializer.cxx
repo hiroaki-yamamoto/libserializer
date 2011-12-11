@@ -14,33 +14,28 @@ using namespace std;
 /*
   Implementation of serializer_interface
  */
-serializer_interface::serializer_interface(istream &in){this->_in=&in;}
-serializer_interface::serializer_interface(ostream &out){this->_out=&out;}
-serializer_interface::serializer_interface(iostream &io){
-    this->_in=dynamic_cast<istream *>(&io);
-    this->_out=dynamic_cast<ostream *>(&io);
-}
-void serializer_interface::stream(istream &in){this->_in=&in;}
+serializer_interface::serializer_interface(istream &in){this->stream(in);}
+serializer_interface::serializer_interface(ostream &out){this->stream(out);}
+serializer_interface::serializer_interface(iostream &io){this->stream(io);}
+void serializer_interface::stream(istream &in){this->_in=&in; this->setSize();}
 void serializer_interface::stream(ostream &out){this->_out=&out;}
 void serializer_interface::stream(iostream &io){
     this->_in=dynamic_cast<istream *>(&io);
     this->_out=dynamic_cast<ostream *>(&io);
-    assert(this->_in!=nullptr&&this->_out!=nullptr);
+    assert(this->_in!=nullptr||this->_out!=nullptr);
+    this->setSize();
 }
-
-size_t serializer_interface::size(){
+void serializer_interface::setSize(){
     READABLE_REQUIRED;
-    streampos current=this->_in->tellg(),size;
-    this->_in->seekg(0,ios::end);
-    size=this->_in->tellg();
-    this->_in->seekg(current);
-
-    return size;
+    streampos current;
+    if(this->_in!=nullptr){
+        current=this->_in->tellg();
+        this->_in->seekg(0,ios::end);
+        this->_size=this->_in->tellg();
+        this->_in->seekg(current);
+    }
 }
-size_t serializer_interface::avail(){
-    READABLE_REQUIRED;
-    return this->size()-this->_in->tellg();
-}
+size_t serializer_interface::size(){return this->_size;}
 
 bool serializer_interface::close(){
     this->_in=nullptr;
@@ -84,7 +79,7 @@ template<typename T> serializer& serializer::operator<<(const T &value){
 }
 template<typename T> serializer& serializer::operator>>(T &ref){
     READABLE_REQUIRED;
-    assert(this->avail()>0);
+    assert(this->_in->rdbuf()->in_avail()>0);
     this->_in->read(this->buffer,this->buffer_size);
     assert(!is_str(this->buffer[0]));
     bool boolbuf;
@@ -125,7 +120,7 @@ serializer& serializer::operator>>(string &str){
     //I'm not sure if it is a bug that the pointer of istream is not incremented when using this->_in->get().
     //However this is fact that I should provide the alternative. Instead, I use this->_in->read(char_type*,streamsize).
     this->_in->read(this->buffer,1);
-    assert(this->_in->good()&&this->avail()>0&&is_str((unsigned char)this->buffer[0]));
+    assert(this->_in->good()&&this->_in->rdbuf()->in_avail()>0&&is_str((unsigned char)this->buffer[0]));
     getline(*this->_in,str,'\0');
     return (*this);
 }

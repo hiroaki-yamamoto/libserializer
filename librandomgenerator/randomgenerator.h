@@ -14,10 +14,12 @@ using namespace std;
 namespace random_class{
     class randomgenerator{
         public:
-            randomgenerator(const string="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()~=-^|~\\@`[{;+:*]}_/?.>,<\n",const size_t=0);
+            randomgenerator(const string="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()~=-^|~\\@`[{;+:*]}_/?.>,<\n",const size_t=0,const size_t=20);
             ~randomgenerator();
             size_t max() const;
+            size_t string_size() const;
             void max(const size_t);
+            void string_size(const size_t);
             randomgenerator &operator>>(float &);
             randomgenerator &operator>>(double &);
             randomgenerator &operator>>(long double &);
@@ -34,7 +36,7 @@ namespace random_class{
                 return (*this);
             }
         private:
-            size_t _max;
+            size_t _max,_ssize;
             string _map;
             mt19937 *generator;
 #ifdef DEBUG_RANDOM

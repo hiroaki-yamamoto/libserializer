@@ -24,6 +24,7 @@ generator::generator(const size_t array_size){
                   "#include <vector>\n"
                   "#include <list>\n"
                   "#include <map>\n"
+                  "#include <typeinfo>\n"
                   "#include \"../librandomgenerator/randomgenerator.h\"\n"
                   "#include \"../libserializer/serializer.h\"\n"
                   "#include \"time_array.h\"\n"

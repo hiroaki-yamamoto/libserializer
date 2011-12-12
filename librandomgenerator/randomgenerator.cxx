@@ -6,18 +6,21 @@
 using namespace random_class;
 using namespace std;
 
-randomgenerator::randomgenerator(const string map, const size_t size){
-    this->_max=size;
+randomgenerator::randomgenerator(const string map, const size_t max,const size_t string_size){
+    this->_max=max;
+    this->_ssize=string_size;
     this->_map=map;
     this->generator=new mt19937(time(nullptr));
 }
 
 randomgenerator::~randomgenerator(){delete this->generator;}
 size_t randomgenerator::max() const{return this->_max;}
+size_t randomgenerator::string_size() const{return this->_ssize;}
 void randomgenerator::max(const size_t max){this->_max=max;}
+void randomgenerator::string_size(const size_t ssize){this->_ssize=ssize;}
 
 randomgenerator &randomgenerator::operator>>(string &ref){
-    for(size_t counter=0;counter<((this->_max==0)?20:this->_max);counter++){
+    for(size_t counter=0;counter<this->_ssize;counter++){
         size_t index;
         (*this)>>index;
         ref+=this->_map[index%this->_map.size()];

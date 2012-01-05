@@ -6,6 +6,7 @@
 #include<unordered_map>
 #include<sstream>
 #include<cassert>
+#include<type_traits>
 
 #include "endian_detector.h"
 #include "numeric_detector.h"
@@ -264,9 +265,7 @@ class serializer:virtual public serializer_interface{
           @see operator>>(T &)
          */
         template <class T> serializer& operator>>(const T array[]){
-            size_t size;
-            (*this)>>size;
-            for(size_t counter=0;counter<size;counter++) (*this)>>array[counter];
+            this->readArray(array);
             return (*this);
         }
         /*!
@@ -332,7 +331,13 @@ class serializer:virtual public serializer_interface{
             (*this)<<size;
             for(auto value:array) (*this)<<value;
         }
-        template<class T> void readArray(T &array){
+        template<class T> typename enable_if<is_array<T>::value,void>::type readArray(T &array){
+            size_t size;
+            (*this)>>size;
+            for(size_t counter=0;counter<size;counter++) (*this)>>array[counter];
+        }
+
+        template<class T> typename enable_if<is_class<T>::value,void>::type readArray(T &array){
             size_t size;
             (*this)>>size;
             for(size_t counter=0;counter<size;counter++){

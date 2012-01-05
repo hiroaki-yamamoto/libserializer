@@ -93,11 +93,11 @@ template<typename T> serializer& serializer::operator>>(T &ref){
     this->_in->seekg(1+size-this->buffer_size,ios_base::cur);
     ref=0;
     switch(this->endian){
-        case Endian::little:
-            reverse_copy(this->buffer+1,this->buffer+1+size,(char*)&ref);
-            break;
         case Endian::big:
             copy_backward(this->buffer+1,this->buffer+1+size,(char*)((&ref)+1));
+            break;
+        case Endian::little:
+            reverse_copy(this->buffer+1,this->buffer+1+size,(char*)&ref);
             break;
         default:
             throw logic_error("Not supported endian.");

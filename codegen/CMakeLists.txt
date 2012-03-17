@@ -16,7 +16,7 @@ add_executable(codegen
 set_property(TARGET codegen PROPERTY COMPILE_FLAGS "${OpenMP_CXX_FLAGS}")
 target_link_libraries(codegen gomp)
 
-export(TARGETS codegen NAMESPACE application FILE codegen-config.cmake)
+export(TARGETS codegen NAMESPACE libserializer_ FILE codegen-config.cmake)
 export(PACKAGE codegen)
 
 install(TARGETS codegen
@@ -24,4 +24,4 @@ install(TARGETS codegen
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
-install(EXPORT codegen-export NAMESPACE serializer_bin DESTINATION share/cmake/Modules FILE Findcodegen.cmake)
+install(EXPORT codegen-export NAMESPACE libserializer_ DESTINATION share/cmake/Modules FILE Findcodegen.cmake)

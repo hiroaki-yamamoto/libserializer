@@ -127,12 +127,12 @@ else(SHOW_TIMEDIFF)
     message(STATUS "Showing time difference is not enabled.")
 endif(SHOW_TIMEDIFF)
 
-export(TARGETS serializer_test NAMESPACE test FILE serializer_test-config.cmake)
+export(TARGETS serializer_test NAMESPACE serializer_ FILE serializer_test-config.cmake)
 export(PACKAGE serializer_test)
 
 install(
     EXPORT libserializer_testing_program 
-    NAMESPACE serializer_bin 
+    NAMESPACE serializer_
     DESTINATION share/cmake/Modules 
     FILE Findserializer_test.cmake
 )

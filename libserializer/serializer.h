@@ -3,18 +3,33 @@
 #include<string>
 #include<list>
 #include<map>
-#include<unordered_map>
 #include<sstream>
-#include<cassert>
+#ifdef DEBUG_SERIALIZER
+    #include<cassert>
+#else
+    #include<stdexcept>
+#endif
 #include<type_traits>
 
 #include "endian_detector.h"
 #include "numeric_detector.h"
-
-#define WRITABLE_REQUIRED assert(this->_out!=nullptr)
-#define READABLE_REQUIRED assert(this->_in!=nullptr)
-
 using namespace std;
+
+inline void WRITABLE_REQUIRED(const ostream *out){
+#ifdef DEBUG_SERIALIZER
+    assert(out!=nullptr)
+#else
+    if(out==nullptr) throw invalid_argument("A writable stream is required.");
+#endif
+}
+
+inline void READABLE_REQUIRED(const istream *in){
+#ifdef DEBUG_SERIALIZER
+    assert(in!=nullptr)
+#else
+    if(in==nullptr) throw invalid_argument("A readable stream is required.");
+#endif
+}
 
 /*!
   The basis of Serializer.

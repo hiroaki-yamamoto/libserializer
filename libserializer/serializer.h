@@ -159,7 +159,7 @@ class serializer:virtual public serializer_interface{
           This operator reads the data while the read data is 0x00 or EOF.
           @param string String to put the deserialized data.
           @return (*this) after deserializing.
-          @throw logic_error This exception will be thrown when the type of the data is invalid.
+          @throw invalid_argument This exception will be thrown when the type of the data is invalid.
           @see operator<<(const string &)
          */
         serializer& operator>>(string &);
@@ -190,6 +190,7 @@ class serializer:virtual public serializer_interface{
                                 However, this exception will not be thrown in the almost all situation, because sizeof(size_t)==sizeof(streamsize) in the most situation.
             @throw logic_error This exception will be thrown when the endian of the computer using this library is PPD (aka. middle endian). \n
                                However, this exception will not be thrown in the most case neither, because I've never seen a computer using PPD endian since I was born.
+            @throw invalid_argument This exception will be thrown when the type of the variable you want to deserialize is not valid.
             @see operator>>(T &)
          */
         template<typename T> serializer& operator<<(const T&);

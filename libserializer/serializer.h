@@ -91,6 +91,10 @@ class serializer_interface{
         void stream(iostream &);
     protected:
         /*!
+          This enum is used for specifying seeking mode.
+         */
+        enum seek_mode{SEEK_IN=1,SEEK_OUT=2};
+        /*!
           Pointer to hold relationship the specified stream.
          */
         istream *_in;
@@ -104,6 +108,13 @@ class serializer_interface{
           @throw logic_error throws this exception if this->_in is nullptr.
         */
         size_t size();
+        /*!
+          Set the current position to the offset.
+          @param streamoff where to seek.
+          @param seek_mode stream to set the position. If SEEK_IN is specified, the seeking is applied to input only. 
+                 If SEEK_OUT is specified, the seeking is applied to output only. By default, the seeking is applied to both streams.
+         */
+        void seek(const streamoff,const int=SEEK_IN|SEEK_OUT);
     private:
         void setSize();
         size_t _size;

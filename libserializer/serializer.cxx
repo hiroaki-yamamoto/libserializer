@@ -40,6 +40,20 @@ void serializer_interface::setSize(){
     }
 }
 size_t serializer_interface::size(){return this->_size;}
+void serializer_interface::seek(const streamoff offset,const int mode){
+    if(this->_in!=nullptr&&(mode&SEEK_IN)==SEEK_IN){
+        if(this->_in->eof()){
+            this->_in->clear();
+            this->_in->seekg(offset,ios_base::end);
+        }
+        else if(!(*this->_in)){
+            this->_in->clear();
+            this->_in->seekg(offset,ios_base::beg);
+        }
+        else this->_in->seekg(offset,ios_base::cur);
+    }
+    if(this->_out!=nullptr&&(mode&SEEK_OUT)==SEEK_OUT) this->_out->seekp(offset,ios_base::cur);
+}
 
 bool serializer_interface::close(){
     this->_in=nullptr;
@@ -90,12 +104,13 @@ template<typename T> serializer& serializer::operator>>(T &ref){
 #endif
     
     this->_in->read(this->buffer,this->buffer_size);
+    size_t read_size=this->_in->gcount();
     
 #ifdef DEBUG_SERIALIZER
     assert(!is_str(this->buffer[0]));
 #else
     if(is_str(this->buffer[0])){
-        this->_in->seekg(-this->buffer_size,ios_base::cur);
+        this->seek(-read_size,SEEK_IN);
         throw invalid_argument("The data is string. You have to specify a string variable.");
     }
 #endif
@@ -103,20 +118,20 @@ template<typename T> serializer& serializer::operator>>(T &ref){
     bool boolbuf;
     if(bool_value(this->buffer[0],&boolbuf)){
         ref=boolbuf;
-        this->_in->seekg(-this->buffer_size+1,ios_base::cur);
+        this->seek(-read_size+1,SEEK_IN);
         return (*this);
     }
 #ifdef DEBUG_SERIALIZER
     assert((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer));
 #else
     if((!is_float(this->buffer[0])||!numeric_limits<T>::is_iec559)&&(is_float(this->buffer[0])||!numeric_limits<T>::is_integer)){
-        this->_in->seekg(-this->buffer_size,ios_base::cur);
+        this->seek(-read_size,SEEK_IN);
         if((!is_float(this->buffer[0])||!numeric_limits<T>::is_iec559)) throw invalid_argument("Tha data is integer. You have to specify a integer variable.");
         else if(is_float(this->buffer[0])||!numeric_limits<T>::is_integer) throw invalid_argument("Tha data is float. You have to specify a float variable.");
     }
 #endif
     size_t size=properly_size((unsigned char)this->buffer[0]);
-    this->_in->seekg(1+size-this->buffer_size,ios_base::cur);
+    this->seek(1+size-read_size,SEEK_IN);
     ref=0;
     switch(this->endian){
         case Endian::big:
@@ -150,7 +165,7 @@ serializer& serializer::operator>>(string &str){
     assert(this->_in->rdbuf()->in_avail()>0&&is_str((unsigned char)this->buffer[0]));
 #else
     if(!is_str((unsigned char)this->buffer[0])||this->_in->rdbuf()->in_avail()<=0){
-        this->_in->seekg(-1,ios_base::cur);
+        this->seek(-1,SEEK_IN);
         if(!is_str((unsigned char)this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
         if(this->_in->rdbuf()->in_avail()<=0) throw out_of_range("There are no readable data.");
     }

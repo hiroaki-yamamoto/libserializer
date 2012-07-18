@@ -150,7 +150,7 @@ template<typename T> serializer& serializer::operator>>(T &ref){
 }
 
 serializer& serializer::operator<<(const string &s){
-    READABLE_REQUIRED(this->_in);
+    WRITABLE_REQUIRED(this->_out);
     this->_out->put(STRING);
     (*this->_out)<<s<<'\0';
     return (*this);

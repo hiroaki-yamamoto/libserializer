@@ -12,6 +12,6 @@ SOURCES = serializer_test.cxx \
           tab_count.cxx
 
 OTHER_FILES = CMakeLists.txt \
-              generate_cxx.cmake 
+              generate_cxx.cmake  
 
 

@@ -1,81 +1,59 @@
-set(codegen_working_dir "${serializer_test_BINARY_DIR}/generated")
+set(codegen_working_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
 
-function(cxx_name)
-    set(alias
-        "str"
-        "bln"
-        "ch"
-        "sh"
-        "i"
-        "l"
-        "ll"
-        "uch"
-        "ush"
-        "ui"
-        "ul"
-        "ull"
-        "flt"
-        "dbl"
-        "ldbl"
-    )
+function(make_typedef)
     set(types
         "string" "bool" "char" "short" "int" "long" "long long" 
         "unsigned char" "unsigned short" "unsigned int" "unsigned long" "unsigned long long"
         "float" "double" "long double"
     )
-    string(REPLACE ";" "\n" alias_file "${alias}")
+    set(types ${types} PARENT_SCOPE)
     string(REPLACE ";" "\n" types_file "${types}")
-    file(WRITE "${codegen_working_dir}/aliases.def" "${alias_file}")
     file(WRITE "${codegen_working_dir}/types.def" "${types_file}")
+endfunction(make_typedef)
 
-    set(write_raw_test_source "${codegen_working_dir}/write_raw.cxx")
-    set(write_vec_test_source "${codegen_working_dir}/write_vec.cxx")
-    set(write_lst_test_source "${codegen_working_dir}/write_lst.cxx")
-    set(write_test_source "${codegen_working_dir}/write_test.cxx")
+function(make_sources type_array)
+    foreach(type ${type_array})
+        string(REPLACE " " "_" type_replaced "${type}")
+        list(APPEND raw_write "write_${type_replaced}.cxx")
+        list(APPEND raw_read "read_${type_replaced}.cxx")
+        list(APPEND vec_write "write_vec_${type_replaced}.cxx")
+        list(APPEND vec_read "read_vec_${type_replaced}.cxx")
+        list(APPEND lst_write "write_lst_${type_replaced}.cxx")
+        list(APPEND lst_read "read_lst_${type_replaced}.cxx")
+        foreach(value ${type_array})
+            string(REPLACE " " "_" value_replaced "${value}")
+            list(APPEND map_write "write_map_${type_replaced}_${value_replaced}.cxx")
+            list(APPEND map_read "read_map_${type_replaced}_${value_replaced}.cxx")
+        endforeach(value)
+    endforeach(type)
 
-    set(read_raw_test_source "${codegen_working_dir}/read_raw.cxx")
-    set(read_vec_test_source "${codegen_working_dir}/read_vec.cxx")
-    set(read_lst_test_source "${codegen_working_dir}/read_lst.cxx")
-    set(read_test_source "${codegen_working_dir}/read_test.cxx")
+    string(REPLACE ";" "\n" raw_write_sources "${raw_write}")
+    string(REPLACE ";" "\n" vec_write_sources "${vec_write}")
+    string(REPLACE ";" "\n" lst_write_sources "${lst_write}")
+    string(REPLACE ";" "\n" map_write_sources "${map_write}")
 
-    set(write_raw_test_source "${write_raw_test_source}" PARENT_SCOPE)
-    set(write_vec_test_source "${write_vec_test_source}" PARENT_SCOPE)
-    set(write_lst_test_source "${write_lst_test_source}" PARENT_SCOPE)
-    set(write_test_source "${write_test_source}" PARENT_SCOPE)
+    string(REPLACE ";" "\n" raw_read_sources "${raw_read}")
+    string(REPLACE ";" "\n" vec_read_sources "${vec_read}")
+    string(REPLACE ";" "\n" lst_read_sources "${lst_read}")
+    string(REPLACE ";" "\n" map_read_sources "${map_read}")
 
-    set(read_raw_test_source "${read_raw_test_source}" PARENT_SCOPE)
-    set(read_vec_test_source "${read_vec_test_source}" PARENT_SCOPE)
-    set(read_lst_test_source "${read_lst_test_source}" PARENT_SCOPE)
-    set(read_test_source "${read_test_source}" PARENT_SCOPE)
+    file(WRITE "${codegen_working_dir}/write_raw.def" ${raw_write_sources})
+    file(WRITE "${codegen_working_dir}/write_vec.def" ${vec_write_sources})
+    file(WRITE "${codegen_working_dir}/write_lst.def" ${lst_write_sources})
+    file(WRITE "${codegen_working_dir}/write_map.def" ${map_write_sources})
     
-    foreach(key ${alias})
-        foreach(value ${alias})
-            list(APPEND write_map_test_source "${codegen_working_dir}/write_map_${key}${value}_test.cxx")
-            list(APPEND read_map_test_source "${codegen_working_dir}/read_map_${key}${value}_test.cxx")
-        endforeach(value ${alias})
-    endforeach(key)
-    set(write_map_test_source ${write_map_test_source} PARENT_SCOPE)
-    set(read_map_test_source ${read_map_test_source} PARENT_SCOPE)
+    file(WRITE "${codegen_working_dir}/read_raw.def" ${raw_read_sources})
+    file(WRITE "${codegen_working_dir}/read_vec.def" ${vec_read_sources})
+    file(WRITE "${codegen_working_dir}/read_lst.def" ${lst_read_sources})
+    file(WRITE "${codegen_working_dir}/read_map.def" ${map_read_sources})
 
-    string(REPLACE ";" "\n" source_wmap "${write_map_test_source}")
-    string(REPLACE ";" "\n" source_rmap "${read_map_test_source}")
+    set(raw_write ${raw_write} PARENT_SCOPE)
+    set(vec_write ${vec_write} PARENT_SCOPE)
+    set(lst_write ${lst_write} PARENT_SCOPE)
+    set(map_write ${map_write} PARENT_SCOPE)
 
-    file(WRITE "${codegen_working_dir}/write_raw_source.def" "${write_raw_test_source}")
-    file(WRITE "${codegen_working_dir}/write_vec_source.def" "${write_vec_test_source}")
-    file(WRITE "${codegen_working_dir}/write_lst_source.def" "${write_lst_test_source}")
-    file(WRITE "${codegen_working_dir}/write_map_source.def" "${source_wmap}")
-    file(WRITE "${codegen_working_dir}/write_test_source.def" "${source_write_test}")
-
-    file(WRITE "${codegen_working_dir}/read_raw_source.def" "${read_raw_test_source}")
-    file(WRITE "${codegen_working_dir}/read_vec_source.def" "${read_vec_test_source}")
-    file(WRITE "${codegen_working_dir}/read_lst_source.def" "${read_lst_test_source}")
-    file(WRITE "${codegen_working_dir}/read_map_source.def" "${source_rmap}")
-    file(WRITE "${codegen_working_dir}/read_test_source.def" "${source_read_test}")
-endfunction(cxx_name)
-
-function(header_name)
-    set(header_files "${codegen_working_dir}/test.h" "${codegen_working_dir}/test_internal.h")
-    set(header_files ${header_files} PARENT_SCOPE)
-    string(REPLACE ";" "\n" headers "${header_files}")
-    file(WRITE "${codegen_working_dir}/headers.def" "${headers}")
-endfunction(header_name)
+    set(raw_read ${raw_read} PARENT_SCOPE)
+    set(vec_read ${vec_read} PARENT_SCOPE)
+    set(lst_read ${lst_read} PARENT_SCOPE)
+    set(map_read ${map_read} PARENT_SCOPE)
+endfunction(make_sources)

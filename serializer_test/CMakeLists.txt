@@ -3,6 +3,7 @@ find_package(libserializer REQUIRED)
 find_package(librandomgenerator REQUIRED)
 find_package(codegen REQUIRED)
 include(generate_cxx.cmake)
+include(ExternalProject)
 include_directories(AFTER "${serializer_test_BINARY_DIR}/generated" ${serializer_test_SOURCE_DIR})
 
 file(MAKE_DIRECTORY ${codegen_working_dir})
@@ -10,76 +11,60 @@ file(MAKE_DIRECTORY ${codegen_working_dir})
 option(STATIC "Build test program statically." OFF)
 option(SHOW_TIMEDIFF "Show Time Difference." OFF)
 
-cxx_name()
-header_name()
+make_typedef()
+make_sources("${types}")
+
+foreach(source ${raw_write} ${raw_read})
+    list(APPEND raw_sources "${codegen_working_dir}/${source}")
+endforeach(source)
+
+foreach(source ${vec_write} ${vec_read})
+    list(APPEND vec_sources "${codegen_working_dir}/${source}")
+endforeach(source)
+
+foreach(source ${lst_write} ${lst_read})
+    list(APPEND lst_sources "${codegen_working_dir}/${source}")
+endforeach(source)
+
+foreach(source ${map_write} ${map_read})
+    list(APPEND map_sources "${codegen_working_dir}/${source}")
+endforeach(source)
+
+list(APPEND sources ${raw_sources} ${vec_sources} ${lst_sources} ${map_sources})
 
 add_custom_command(
-    OUTPUT 
-        ${write_raw_test_source}
-        ${write_lst_test_source}
-        ${write_vec_test_source}
-        ${write_map_test_source}
-        ${write_test_source}
-        ${read_raw_test_source}
-        ${read_lst_test_source}
-        ${read_vec_test_source}
-        ${read_map_test_source}
-        ${read_test_source}
-        ${header_files}
+    OUTPUT  ${sources} "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx"
     COMMAND codegen
     DEPENDS codegen
     COMMENT "Generating test source codes."
     WORKING_DIRECTORY ${codegen_working_dir}
 )
-
 add_custom_target(
-    test 
-    DEPENDS  
-        ${write_raw_test_source}
-        ${write_lst_test_source}
-        ${write_vec_test_source}
-        ${write_map_test_source}
-        ${write_test_source}
-        ${read_raw_test_source}
-        ${read_lst_test_source}
-        ${read_vec_test_source}
-        ${read_map_test_source}
-        ${read_test_source}
-        ${header_files}
+    test_library
+    DEPENDS ${sources} "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx"
     WORKING_DIRECTORY ${codegen_working_dir}
 )
 
-add_executable(serializer_test
+add_executable(
+    serializer_test
     time_array.cxx
     tab_count.cxx
     serializer_test.cxx
 )
 
 if(STATIC)
-    add_library(write_raw_test STATIC ${write_raw_test_source})
-    add_library(write_lst_test STATIC ${write_lst_test_source})
-    add_library(write_vec_test STATIC ${write_vec_test_source})
-    add_library(write_map_test STATIC ${write_map_test_source})
+    add_library(raw_test STATIC ${raw_sources})
+    add_library(lst_test STATIC ${vec_sources})
+    add_library(vec_test STATIC ${lst_sources})
+    add_library(map_test STATIC ${map_sources})
     
-    add_library(read_raw_test STATIC ${read_raw_test_source})
-    add_library(read_lst_test STATIC ${read_lst_test_source})
-    add_library(read_vec_test STATIC ${read_vec_test_source})
-    add_library(read_map_test STATIC ${read_map_test_source})
+    add_library(test STATIC "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx")
     
-    add_library(write_test STATIC ${write_test_source})
-    add_library(read_test STATIC ${read_test_source})
+    target_link_libraries(test raw_test lst_test vec_test map_test)
+    target_link_libraries(serializer_test serializer-st randomgenerator-st test)
 
-    add_dependencies(write_test test)
-    add_dependencies(read_test test)
-    
-    target_link_libraries(write_test write_raw_test write_lst_test write_vec_test write_map_test)
-    target_link_libraries(read_test read_raw_test read_lst_test read_vec_test read_map_test)
-
-    target_link_libraries(serializer_test serializer-st randomgenerator-st write_test read_test)
     install(
-        TARGETS
-            write_raw_test write_lst_test write_vec_test write_map_test write_test
-            read_raw_test read_lst_test read_vec_test read_map_test read_test
+        TARGETS raw_test vec_test lst_test map_test test
         EXPORT  libserializer_testing_program
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
@@ -87,31 +72,18 @@ if(STATIC)
     )
     message(STATUS "The test program will linked statically.")
 else(STATIC)
-    add_library(write_raw_test SHARED ${write_raw_test_source})
-    add_library(write_lst_test SHARED ${write_lst_test_source})
-    add_library(write_vec_test SHARED ${write_vec_test_source})
-    add_library(write_map_test SHARED ${write_map_test_source})
+    add_library(raw_test SHARED ${raw_sources})
+    add_library(lst_test SHARED ${vec_sources})
+    add_library(vec_test SHARED ${lst_sources})
+    add_library(map_test SHARED ${map_sources})
     
-    add_library(read_raw_test SHARED ${read_raw_test_source})
-    add_library(read_lst_test SHARED ${read_lst_test_source})
-    add_library(read_vec_test SHARED ${read_vec_test_source})
-    add_library(read_map_test SHARED ${read_map_test_source})
-    
-    add_library(write_test SHARED ${write_test_source})
-    add_library(read_test SHARED ${read_test_source})
+    add_library(test SHARED "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx")
 
-    add_dependencies(write_test test)
-    add_dependencies(read_test test)
-    
-    target_link_libraries(write_test write_raw_test write_lst_test write_vec_test write_map_test)
-    target_link_libraries(read_test read_raw_test read_lst_test read_vec_test read_map_test)
-
-    target_link_libraries(serializer_test write_test read_test serializer randomgenerator)
+    target_link_libraries(test raw_test lst_test vec_test map_test)
+    target_link_libraries(serializer_test serializer randomgenerator test)
 
     install(
-        TARGETS
-            serializer_test write_raw_test write_lst_test write_vec_test write_map_test write_test
-            read_raw_test read_lst_test read_vec_test read_map_test read_test
+        TARGETS raw_test vec_test lst_test map_test test
         EXPORT  libserializer_testing_program
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib

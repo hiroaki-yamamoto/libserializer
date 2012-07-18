@@ -26,7 +26,7 @@ class generator{
         void generate_headers();
     private:
         size_t array_size;
-        vector<string> types,aliases,write_raw_sources,read_raw_sources,
+        vector<string> types,write_raw_sources,read_raw_sources,
         write_vec_sources,read_vec_sources,write_lst_sources,read_lst_sources,
         write_map_sources,read_map_sources,write_raw_functions,write_vec_functions,
         write_list_functions,write_map_functions,read_raw_functions,read_vec_functions,

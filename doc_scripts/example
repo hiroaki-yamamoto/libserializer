@@ -42,7 +42,7 @@ using namespace std;
 ofstream test("test.dat",ios::binary);
 serializer s(test);
 //Initializes variables.
-int a=65534,b=numeric_limits<__typeof(b)>::min();
+int a=65534,b=numeric_limits<decltype(b)>::min();
 string str="Hello World";
 //Serializes variabels.
 s<<a;

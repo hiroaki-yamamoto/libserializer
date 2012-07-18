@@ -11,7 +11,7 @@ vector<string> &operator>>(vector<string> &vec, string &el){
     return vec;
 }
 ostream &operator<<(ostream &out,const vector<string> &vec){
-    for(string el:vec) out<<el<<";"<<endl;
+    for(string el:vec) out<<el<<endl;
     return out;
 }
 istream &operator>>(istream &in,vector<string> &vec){

@@ -1,7 +1,7 @@
 #include "generator.h"
 void generator::generate_write_map(){
-    for(__typeof(this->types.size()) key_index=0;key_index<this->types.size();key_index++)
-        for(__typeof(this->types.size()) value_index=0;value_index<this->types.size();value_index++){
+    for(decltype(this->types.size()) key_index=0;key_index<this->types.size();key_index++)
+        for(decltype(this->types.size()) value_index=0;value_index<this->types.size();value_index++){
             ofstream map_out(this->write_map_sources[(key_index*this->types.size())+value_index]);
             map_out<<"#include \""<<this->internal_header_file<<"\""<<endl<<this->ns<<endl;
             map_out<<this->write_map_functions[(key_index*this->types.size())+value_index]<<"{"<<endl;
@@ -20,8 +20,8 @@ void generator::generate_write_map(){
         }
 }
 void generator::generate_read_map(){
-    for(__typeof(this->types.size()) key_index=0;key_index<this->types.size();key_index++)
-        for(__typeof(this->types.size()) value_index=0;value_index<this->types.size();value_index++){
+    for(decltype(this->types.size()) key_index=0;key_index<this->types.size();key_index++)
+        for(decltype(this->types.size()) value_index=0;value_index<this->types.size();value_index++){
             ofstream map_out(this->read_map_sources[(key_index*this->types.size())+value_index]);
             map_out<<"#include \""<<this->internal_header_file<<"\""<<endl<<this->ns<<endl;
             map_out<<this->read_map_functions[(key_index*this->types.size())+value_index]<<"{"<<endl;

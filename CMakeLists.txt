@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 project(serializer CXX)
 
 find_package(Doxygen COMPONENTS)
+
+include_directories(AFTER ${CMAKE_CURRENT_SOURCE_DIR}/libserializer)
+
 option(WITHOUT_UNIX_MODE "Builds without unix mode." OFF)
 option(BUILD_TEST "Builds test program." OFF)
 option(GENERATE_DOC "Generates the documents of the libraries." OFF)
@@ -57,6 +60,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
         set(CMAKE_CXX_FLAGS "-std=gnu++11 ${CMAKE_CXX_FLAGS}")
     endif(GCC_VERSION VERSION_LESS "4.7")
     message(STATUS "Enabled C++0x[${CMAKE_CXX_FLAGS}]")
+elseif(MSVC)
+    message(STATUS "Compiler:MSVC")
 else(CMAKE_COMPILER_IS_GNUCXX)
     message(FATAL_ERROR "This library needs to be built with GCC, because building with the compiler other than GCC is not intended.")
 endif(CMAKE_COMPILER_IS_GNUCXX)
@@ -85,8 +90,14 @@ endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 add_subdirectory(libserializer)
 
 if(BUILD_TEST)
+    include_directories(AFTER 
+        ${CMAKE_CURRENT_SOURCE_DIR}/time_lib 
+        ${CMAKE_CURRENT_SOURCE_DIR}/serializer_test 
+        ${CMAKE_CURRENT_SOURCE_DIR}/librandomgenerator 
+        ${CMAKE_CURRENT_SOURCE_DIR}/codegen)
     add_subdirectory(codegen)
     add_subdirectory(librandomgenerator)
+    add_subdirectory(time_lib)
     add_subdirectory(serializer_test)
     message(STATUS "Test program will be built")
 endif(BUILD_TEST)

@@ -1,4 +1,4 @@
-#include "randomgenerator.h"
+#include <randomgenerator.h>
 #include <stdexcept>
 #include <cmath>
 #include <cassert>

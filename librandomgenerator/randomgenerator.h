@@ -12,7 +12,11 @@
 
 using namespace std;
 namespace random_class{
+#if defined(_WIN32)||defined(_WIN64)
+    class __declspec(dllexport) randomgenerator{
+#else
     class randomgenerator{
+#endif
         public:
             randomgenerator(const string="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()~=-^|~\\@`[{;+:*]}_/?.>,<\n",const size_t=0,const size_t=20);
             ~randomgenerator();

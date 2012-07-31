@@ -24,10 +24,10 @@ generator::generator(const size_t array_size){
                   "#include <vector>\n"
                   "#include <list>\n"
                   "#include <map>\n"
-                  "#include \"../librandomgenerator/randomgenerator.h\"\n"
-                  "#include \"../libserializer/serializer.h\"\n"
-                  "#include \"time_array.h\"\n"
-                  "#include \"operator.hxx\"\n";
+                  "#include <randomgenerator.h>\n"
+                  "#include <serializer.h>\n"
+                  "#include <time_array.h>\n"
+                  "#include <operator.hxx>\n";
     this->ns="using namespace std;\n"
              "using namespace time_class;\n"
              "using namespace random_class;\n";
@@ -91,14 +91,44 @@ generator::generator(const size_t array_size){
         {
             for(string type:this->types){
                 for(char &t_c:type) if(t_c==' ') t_c='_';
-                this->write_raw_functions<<("void "+this->write_prefix+type+this->test_suffix+this->write_args);
-                this->read_raw_functions<<("void "+this->read_prefix+type+this->test_suffix+this->read_args);
+                this->write_raw_functions<<(
+                               #if defined(_WIN32)||defined(_WIN64)
+                                               "__declspec(dllexport) "
+                               #endif
+                                               "void "+this->write_prefix+type+this->test_suffix+this->write_args
+                                               );
+                this->read_raw_functions<<(
+                              #if defined(_WIN32)||defined(_WIN64)
+                                              "__declspec(dllexport) "
+                              #endif
+                                              "void "+this->read_prefix+type+this->test_suffix+this->read_args
+                                              );
                 
-                this->write_vec_functions<<("void "+this->write_prefix+type+this->vector_suffix+this->test_suffix+this->write_args);
-                this->read_vec_functions<<("void "+this->read_prefix+type+this->vector_suffix+this->test_suffix+this->read_args);
+                this->write_vec_functions<<(
+                               #if defined(_WIN32)||defined(_WIN64)
+                                               "__declspec(dllexport) "
+                               #endif
+                                               "void "+this->write_prefix+type+this->vector_suffix+this->test_suffix+this->write_args
+                                               );
+                this->read_vec_functions<<(
+                              #if defined(_WIN32)||defined(_WIN64)
+                                              "__declspec(dllexport) "
+                              #endif
+                                              "void "+this->read_prefix+type+this->vector_suffix+this->test_suffix+this->read_args
+                                              );
                 
-                this->write_list_functions<<("void "+this->write_prefix+type+this->list_suffix+this->test_suffix+this->write_args);
-                this->read_list_functions<<("void "+this->read_prefix+type+this->list_suffix+this->test_suffix+this->read_args);
+                this->write_list_functions<<(
+                                #if defined(_WIN32)||defined(_WIN64)
+                                                "__declspec(dllexport) "
+                                #endif
+                                                "void "+this->write_prefix+type+this->list_suffix+this->test_suffix+this->write_args
+                                                );
+                this->read_list_functions<<(
+                               #if defined(_WIN32)||defined(_WIN64)
+                                               "__declspec(dllexport) "
+                               #endif
+                                               "void "+this->read_prefix+type+this->list_suffix+this->test_suffix+this->read_args
+                                               );
             }
         }
 #pragma omp section
@@ -107,8 +137,18 @@ generator::generator(const size_t array_size){
                 for(char &t_c:key) if(t_c==' ') t_c='_';
                 for(string value:this->types){
                     for(char &t_c:value) if(t_c==' ') t_c='_';
-                    this->write_map_functions<<("void "+this->write_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->write_args);
-                    this->read_map_functions<<("void "+this->read_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->read_args);
+                    this->write_map_functions<<(
+                               #if defined(_WIN32)||defined(_WIN64)
+                                               "__declspec(dllexport) "
+                               #endif
+                                                   "void "+this->write_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->write_args
+                                                   );
+                    this->read_map_functions<<(
+                              #if defined(_WIN32)||defined(_WIN64)
+                                              "__declspec(dllexport) "
+                              #endif
+                                                  "void "+this->read_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->read_args
+                                                  );
                 }
             }
         }
@@ -249,8 +289,16 @@ void generator::generate_headers(){
             header<<"#pragma once"<<endl;
             header<<"#include \"time_array.h\""<<endl;
             header<<"using namespace time_class;"<<endl;
-            header<<this->write_test<<";"<<endl;
-            header<<this->read_test<<";"<<endl;
+            header<<
+            #if defined(_WIN32)||defined(_WIN64)
+                            "__declspec(dllexport) "<<
+            #endif
+                        this->write_test<<";"<<endl;
+            header<<
+         #if defined(_WIN32)||defined(_WIN64)
+                         "__declspec(dllexport) "<<
+         #endif
+                     this->read_test<<";"<<endl;
             header.close();
         }
     }

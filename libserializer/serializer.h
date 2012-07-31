@@ -11,8 +11,8 @@
 #endif
 #include<type_traits>
 
-#include "endian_detector.h"
-#include "numeric_detector.h"
+#include <endian_detector.h>
+#include <numeric_detector.h>
 using namespace std;
 
 inline void WRITABLE_REQUIRED(const ostream *out){
@@ -125,7 +125,11 @@ class serializer_interface{
   @bug Deserializing data is very slow. This problem will be sloved in the future.\n
        Unfortunately, to solve this problem, I need to rewrite the code, so please be patient.
 */
+#if defined(_WIN32)||defined(WIN64)
+class __declspec(dllexport) serializer:virtual public serializer_interface{
+#else
 class serializer:virtual public serializer_interface{
+#endif
     public:
         /*!
           Constructs Serializer with the specified stream.
@@ -223,7 +227,7 @@ class serializer:virtual public serializer_interface{
           @see operator<<(const list<T> &lst)
           @see operator<<(const vectort<T> &lst)
          */
-        template <typename T> serializer& operator<<(const T ref[]){
+        template<typename T> serializer& operator<<(const T ref[]){
             this->writeArray(ref,sizeof(ref)/sizeof(ref[0]));
             return (*this);
         }
@@ -237,7 +241,7 @@ class serializer:virtual public serializer_interface{
           @see operator<<(const T&)
           @see operator>>(list<T> &lst)
         */
-        template<class T> serializer& operator<<(const list<T> &lst){
+    template<class T> serializer& operator<<(const list<T> &lst){
             this->writeArray(lst,lst.size());
             return (*this);
         }

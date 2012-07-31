@@ -13,10 +13,3 @@ SOURCES = \
     numeric_detector.cxx
 
 OTHER_FILES = CMakeLists.txt
-
-
-
-
-
-
-

@@ -14,7 +14,11 @@
 using namespace std;
 
 namespace time_class{
+#if defined(_WIN32)||defined(_WIN64)
+    __declspec(dllexport) class time_array:public vector<time_type>
+#else
     class time_array:public vector<time_type>
+#endif
     {
         public:
             time_array &operator<<(const time_type &);

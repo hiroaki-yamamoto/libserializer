@@ -2,8 +2,8 @@
 #include <iterator>
 #include <algorithm>
 #include <limits>
-#include "serializer.h"
-#include "endian_detector.h"
+#include <serializer.h>
+#include <endian_detector.h>
 #ifdef DEBUG_SERIALIZER
     #include<typeinfo>
     #include<fstream>

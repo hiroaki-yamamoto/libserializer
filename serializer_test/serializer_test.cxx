@@ -9,9 +9,9 @@
     #include <ctime>
 #endif
 
-#include "test.h"
-#include "time_array.h"
-#include "operator.hxx"
+#include <test.h>
+#include <time_array.h>
+#include <operator.hxx>
 
 using namespace std;
 using namespace time_class;

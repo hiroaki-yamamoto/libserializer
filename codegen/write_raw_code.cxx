@@ -11,6 +11,7 @@ void generator::generate_write_raw(){
         raw_out<<this->types[index]<<" "<<"var;"<<endl;
         raw_out<<"rgen>>var;"<<endl;
         raw_out<<"wlog<<var<<endl;"<<endl;
+        raw_out<<"w_obj++;"<<endl;
         raw_out<<"start.stump();"<<endl;
         raw_out<<"s<<var;"<<endl;
         raw_out<<"end.stump();"<<endl;
@@ -29,6 +30,7 @@ void generator::generate_read_raw(){
         raw_read<<"s>>var;"<<endl;
         raw_read<<"end.stump();"<<endl;
         raw_read<<"rlog<<var<<endl;"<<endl;
+        raw_read<<"r_obj++;"<<endl;
         raw_read<<"}"<<endl;
         raw_read.close();
     }

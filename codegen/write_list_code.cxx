@@ -12,6 +12,7 @@ void generator::generate_write_list(){
         list_out<<"lst<<value;"<<endl;
         list_out<<"}"<<endl;
         list_out<<"wlog<<lst<<endl;"<<endl;
+        list_out<<"w_obj+=lst.size();"<<endl;
         list_out<<"start.stump();"<<endl;
         list_out<<"s<<lst;"<<endl;
         list_out<<"end.stump();"<<endl;
@@ -30,6 +31,7 @@ void generator::generate_read_list(){
         list_read<<"s>>lst;"<<endl;
         list_read<<"end.stump();"<<endl;
         list_read<<"rlog<<lst<<endl;"<<endl;
+        list_read<<"r_obj+=lst.size();"<<endl;
         list_read<<"}"<<endl;
         list_read.close();
     }

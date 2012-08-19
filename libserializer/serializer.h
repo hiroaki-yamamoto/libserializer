@@ -109,12 +109,17 @@ class serializer_interface{
         */
         size_t size();
         /*!
-          Set the current position to the offset.
+          Sets the current position to the offset.
           @param streamoff where to seek.
           @param seek_mode stream to set the position. If SEEK_IN is specified, the seeking is applied to input only. 
                  If SEEK_OUT is specified, the seeking is applied to output only. By default, the seeking is applied to both streams.
          */
         void seek(const streamoff,const int=SEEK_IN|SEEK_OUT);
+        /*!
+         * Gets the size of the available buffer in _in.
+         * \return the size of the available buffer in _in
+         */
+        streamsize in_avail();
     private:
         void setSize();
         size_t _size;
@@ -386,4 +391,8 @@ class serializer:virtual public serializer_interface{
                 ref.insert(value);
             }
         }
-} typedef Serializer;
+};
+#ifndef typedef_serializer
+#define typedef_serializer
+    typedef class serializer Serializer;
+#endif

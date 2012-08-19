@@ -52,5 +52,9 @@ namespace random_class{
                 log.close();
             }
 #endif
-    }typedef randomGenerator,Randomgenerator,RandomGenerator,random_generator;
+    };
+#ifndef typedef_random
+#define typedef_random
+    typedef class randomgenerator randomGenerator,Randomgenerator,RandomGenerator,random_generator;
+#endif
 }

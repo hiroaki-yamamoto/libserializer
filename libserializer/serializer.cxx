@@ -40,6 +40,19 @@ void serializer_interface::setSize(){
     }
 }
 size_t serializer_interface::size(){return this->_size;}
+streamsize serializer_interface::in_avail(){
+    READABLE_REQUIRED(this->_in);
+#if !defined(_WIN32)&&!defined(_WIN64)
+    return this->_in->rdbuf()->in_avail();
+#else
+    streampos cpos=this->_in->tellg();
+    this->_in->seekg(0,ios_base::end);
+    streampos epos=this->_in->tellg();
+    this->_in->seekg(cpos);
+    return (streamsize)((streamoff)(epos-cpos));
+#endif
+}
+
 void serializer_interface::seek(const streamoff offset,const int mode){
     if(this->_in!=nullptr&&(mode&SEEK_IN)==SEEK_IN){
         if(this->_in->eof()){
@@ -98,20 +111,23 @@ template<typename T> serializer& serializer::operator<<(const T &value){
 template<typename T> serializer& serializer::operator>>(T &ref){
     READABLE_REQUIRED(this->_in);
 #ifdef DEBUG_SERIALIZER
-    assert(this->_in->rdbuf()->in_avail()>0);
+    assert(this->in_avail()>0);
 #else
-    if(this->_in->rdbuf()->in_avail()<=0) throw out_of_range("There are no readable data.");
+    if(this->in_avail()<=0) throw out_of_range("There are no readable data.");
 #endif
     
     this->_in->read(this->buffer,this->buffer_size);
     size_t read_size=this->_in->gcount();
     
 #ifdef DEBUG_SERIALIZER
-    assert(!is_str(this->buffer[0]));
+    assert(!is_str(this->buffer[0])&&((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer)));
 #else
     if(is_str(this->buffer[0])){
+        if(is_str(this->buffer[0])) throw invalid_argument("The data is string. However, the type of the specified variable to store the data is not string. please specify string-variable.");
+    }else if((is_float(this->buffer[0])&&!numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)){
         this->seek(-read_size,SEEK_IN);
-        throw invalid_argument("The data is string. You have to specify a string variable.");
+        throw invalid_argument((numeric_limits<T>::is_iec559)?"The data type is float. However, the type of the specified variable to store the data is not float. please specify float-variable.":
+                                                              "The data type is integer. However, the type of the specified variable to store the data is not integer. please specify integer-variable.");
     }
 #endif
     
@@ -121,24 +137,24 @@ template<typename T> serializer& serializer::operator>>(T &ref){
         this->seek(-read_size+1,SEEK_IN);
         return (*this);
     }
+    
+    size_t size=properly_size((unsigned char)this->buffer[0]);
 #ifdef DEBUG_SERIALIZER
-    assert((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer));
-#else
-    if((!is_float(this->buffer[0])||!numeric_limits<T>::is_iec559)&&(is_float(this->buffer[0])||!numeric_limits<T>::is_integer)){
+    assert(size<=sizeof(T));
+#else    
+    if(size>sizeof(T)){
         this->seek(-read_size,SEEK_IN);
-        if((!is_float(this->buffer[0])||!numeric_limits<T>::is_iec559)) throw invalid_argument("Tha data is integer. You have to specify a integer variable.");
-        else if(is_float(this->buffer[0])||!numeric_limits<T>::is_integer) throw invalid_argument("Tha data is float. You have to specify a float variable.");
+        throw invalid_argument("The size of the specified variable is less than the size of read data.");
     }
 #endif
-    size_t size=properly_size((unsigned char)this->buffer[0]);
     this->seek(1+size-read_size,SEEK_IN);
     ref=0;
     switch(this->endian){
         case Endian::big:
-            copy_backward(this->buffer+1,this->buffer+1+size,(char*)((&ref)+1));
+            copy_backward(this->buffer+1,this->buffer+1+size,(char *)((&ref)+1));
             break;
         case Endian::little:
-            reverse_copy(this->buffer+1,this->buffer+1+size,(char*)&ref);
+            reverse_copy(this->buffer+1,this->buffer+1+size,(char *)&ref);
             break;
         default:
             throw logic_error("Not supported endian.");
@@ -162,12 +178,12 @@ serializer& serializer::operator>>(string &str){
     //However this is fact that I should provide the alternative. Instead, I use this->_in->read(char_type*,streamsize).
     this->_in->read(this->buffer,1);
 #ifdef DEBUG_SERIALIZER
-    assert(this->_in->rdbuf()->in_avail()>0&&is_str((unsigned char)this->buffer[0]));
+    assert(this->in_avail()>0&&is_str((unsigned char)this->buffer[0]));
 #else
-    if(!is_str((unsigned char)this->buffer[0])||this->_in->rdbuf()->in_avail()<=0){
+    if(!is_str((unsigned char)this->buffer[0])||this->in_avail()<=0){
         this->seek(-1,SEEK_IN);
         if(!is_str((unsigned char)this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
-        if(this->_in->rdbuf()->in_avail()<=0) throw out_of_range("There are no readable data.");
+        else throw out_of_range("There are no readable data.");
     }
 #endif
     getline(*this->_in,str,'\0');

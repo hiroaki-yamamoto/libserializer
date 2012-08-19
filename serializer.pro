@@ -6,7 +6,8 @@ DEPENDPATH  +=  . \
                 ./serializer_test \
                 ./librandomgenerator \
                 ./doc_scripts \
-                ./time_lib
+                ./time_lib \
+                ./operator
 
 SUBDIRS =   ./codegen \
             ./libserializer \
@@ -14,7 +15,8 @@ SUBDIRS =   ./codegen \
             ./librandomgenerator \
             ./doc_pics \
             ./doc_scripts \
-            ./time_lib
+            ./time_lib \
+            ./operator
 
 serializer_test.depends +=  libserializer \
                             librandomgenerator \

@@ -12,6 +12,7 @@ void generator::generate_write_vector(){
         vector_out<<"vec<<value;"<<endl;
         vector_out<<"}"<<endl;
         vector_out<<"wlog<<vec<<endl;"<<endl;
+        vector_out<<"w_obj+=vec.size();"<<endl;
         vector_out<<"start.stump();"<<endl;
         vector_out<<"s<<vec;"<<endl;
         vector_out<<"end.stump();"<<endl;
@@ -30,6 +31,7 @@ void generator::generate_read_vector(){
         vector_read<<"s>>vec;"<<endl;
         vector_read<<"end.stump();"<<endl;
         vector_read<<"rlog<<vec<<endl;"<<endl;
+        vector_read<<"r_obj+=vec.size();"<<endl;
         vector_read<<"}"<<endl;
         vector_read.close();
     }

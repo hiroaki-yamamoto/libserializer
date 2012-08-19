@@ -1,5 +1,5 @@
 TEMPLATE = lib
-TARGET = libserializer
+TARGET = libtime
 INCLUDEPATH = .
 
 HEADERS += time_array.h

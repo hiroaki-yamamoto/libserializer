@@ -12,6 +12,7 @@ void generator::generate_write_map(){
             map_out<<"m<<p;"<<endl;
             map_out<<"}"<<endl;
             map_out<<"wlog<<m<<endl;"<<endl;
+            map_out<<"w_obj+=m.size();"<<endl;
             map_out<<"start.stump();"<<endl;
             map_out<<"s<<m;"<<endl;
             map_out<<"end.stump();"<<endl;
@@ -30,6 +31,7 @@ void generator::generate_read_map(){
             map_out<<"s>>m;"<<endl;
             map_out<<"end.stump();"<<endl;
             map_out<<"rlog<<m<<endl;"<<endl;
+            map_out<<"r_obj+=m.size();"<<endl;
             map_out<<"}"<<endl;
             map_out.close();
         }

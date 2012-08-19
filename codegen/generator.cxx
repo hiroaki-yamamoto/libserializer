@@ -31,10 +31,10 @@ generator::generator(const size_t array_size){
     this->ns="using namespace std;\n"
              "using namespace time_class;\n"
              "using namespace random_class;\n";
-    this->write_test="void write_test(time_array &start,time_array &end)";
-    this->read_test="void read_test(time_array &start,time_array &end)";
-    this->write_args="(time_array &start,time_array &end,ostream &wlog,serializer &s,randomgenerator &rgen)";
-    this->read_args="(time_array &start,time_array &end,ostream &rlog,serializer &s)";
+    this->write_test="void write_test(time_array &start,time_array &end,size_t &w_obj)";
+    this->read_test="void read_test(time_array &start,time_array &end,size_t &r_obj)";
+    this->write_args="(time_array &start,time_array &end,ostream &wlog,serializer &s,randomgenerator &rgen,size_t &w_obj)";
+    this->read_args="(time_array &start,time_array &end,ostream &rlog,serializer &s,size_t &r_obj)";
 
 #pragma omp parallel sections
     {
@@ -91,44 +91,14 @@ generator::generator(const size_t array_size){
         {
             for(string type:this->types){
                 for(char &t_c:type) if(t_c==' ') t_c='_';
-                this->write_raw_functions<<(
-                               #if defined(_WIN32)||defined(_WIN64)
-                                               "__declspec(dllexport) "
-                               #endif
-                                               "void "+this->write_prefix+type+this->test_suffix+this->write_args
-                                               );
-                this->read_raw_functions<<(
-                              #if defined(_WIN32)||defined(_WIN64)
-                                              "__declspec(dllexport) "
-                              #endif
-                                              "void "+this->read_prefix+type+this->test_suffix+this->read_args
-                                              );
+                this->write_raw_functions<<"void "+this->write_prefix+type+this->test_suffix+this->write_args;
+                this->read_raw_functions<<"void "+this->read_prefix+type+this->test_suffix+this->read_args;
                 
-                this->write_vec_functions<<(
-                               #if defined(_WIN32)||defined(_WIN64)
-                                               "__declspec(dllexport) "
-                               #endif
-                                               "void "+this->write_prefix+type+this->vector_suffix+this->test_suffix+this->write_args
-                                               );
-                this->read_vec_functions<<(
-                              #if defined(_WIN32)||defined(_WIN64)
-                                              "__declspec(dllexport) "
-                              #endif
-                                              "void "+this->read_prefix+type+this->vector_suffix+this->test_suffix+this->read_args
-                                              );
+                this->write_vec_functions<<"void "+this->write_prefix+type+this->vector_suffix+this->test_suffix+this->write_args;
+                this->read_vec_functions<<"void "+this->read_prefix+type+this->vector_suffix+this->test_suffix+this->read_args;
                 
-                this->write_list_functions<<(
-                                #if defined(_WIN32)||defined(_WIN64)
-                                                "__declspec(dllexport) "
-                                #endif
-                                                "void "+this->write_prefix+type+this->list_suffix+this->test_suffix+this->write_args
-                                                );
-                this->read_list_functions<<(
-                               #if defined(_WIN32)||defined(_WIN64)
-                                               "__declspec(dllexport) "
-                               #endif
-                                               "void "+this->read_prefix+type+this->list_suffix+this->test_suffix+this->read_args
-                                               );
+                this->write_list_functions<<"void "+this->write_prefix+type+this->list_suffix+this->test_suffix+this->write_args;
+                this->read_list_functions<<"void "+this->read_prefix+type+this->list_suffix+this->test_suffix+this->read_args;
             }
         }
 #pragma omp section
@@ -137,18 +107,8 @@ generator::generator(const size_t array_size){
                 for(char &t_c:key) if(t_c==' ') t_c='_';
                 for(string value:this->types){
                     for(char &t_c:value) if(t_c==' ') t_c='_';
-                    this->write_map_functions<<(
-                               #if defined(_WIN32)||defined(_WIN64)
-                                               "__declspec(dllexport) "
-                               #endif
-                                                   "void "+this->write_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->write_args
-                                                   );
-                    this->read_map_functions<<(
-                              #if defined(_WIN32)||defined(_WIN64)
-                                              "__declspec(dllexport) "
-                              #endif
-                                                  "void "+this->read_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->read_args
-                                                  );
+                    this->write_map_functions<<"void "+this->write_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->write_args;
+                    this->read_map_functions<<"void "+this->read_prefix+this->map_prefix+key+"_"+value+this->test_suffix+this->read_args;
                 }
             }
         }
@@ -160,7 +120,7 @@ void generator::generate_front_source(){
 #pragma omp section
         {
             ofstream wtest("write_test.cxx");
-            string write_test_args="(start,end,wlog,os,rgen)";
+            string write_test_args="(start,end,wlog,os,rgen,w_obj)";
             wtest<<"#include \"test.h\""<<endl;
             wtest<<"#include \""<<this->internal_header_file<<"\""<<endl;
             wtest<<this->ns<<endl;
@@ -199,7 +159,7 @@ void generator::generate_front_source(){
         }
 #pragma omp section
         {
-            string read_test_args="(start,end,rlog,is)";
+            string read_test_args="(start,end,rlog,is,r_obj)";
             ofstream rtest("read_test.cxx");
             rtest<<"#include \"test.h\""<<endl;
             rtest<<"#include \""<<this->internal_header_file<<"\""<<endl;
@@ -278,7 +238,11 @@ void generator::generate_headers(){
             
             //Then, write all functions into internal_header with functions_list.
             for(vector<string> *functions:functions_list){
-                for(string function:*functions) internal_header<<function<<";"<<endl;
+                for(string function:*functions) internal_header<<
+                                                  #if defined(_WIN32)||defined(_WIN64)
+                                                                  "__declspec(dllexport) "<<
+                                                  #endif
+                                                                  function<<";"<<endl;
                 internal_header<<endl;
             }
             internal_header.close();

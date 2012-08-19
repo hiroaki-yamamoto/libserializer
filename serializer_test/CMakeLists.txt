@@ -3,6 +3,7 @@ find_package(libserializer REQUIRED)
 find_package(librandomgenerator REQUIRED)
 find_package(codegen REQUIRED)
 find_package(libtime REQUIRED)
+find_package(liboperator)
 
 include(generate_cxx.cmake)
 include_directories(AFTER "${serializer_test_BINARY_DIR}/generated")
@@ -48,7 +49,6 @@ add_custom_target(
 
 add_executable(
     serializer_test
-    tab_count.cxx
     serializer_test.cxx
 )
 
@@ -60,12 +60,14 @@ if(STATIC)
     
     add_library(test STATIC "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx")
     
-    target_link_libraries(raw_test serializer_serializer-st libs_randomgenerator-st libs_time-st)
-    target_link_libraries(lst_test serializer_serializer-st libs_randomgenerator-st libs_time-st)
-    target_link_libraries(vec_test serializer_serializer-st libs_randomgenerator-st libs_time-st)
-    target_link_libraries(map_test serializer_serializer-st libs_randomgenerator-st libs_time-st)
-    target_link_libraries(test raw_test lst_test vec_test map_test serializer_serializer-st libs_randomgenerator-st libs_time-st)
-    target_link_libraries(serializer_test test serializer_serializer-st libs_randomgenerator-st libs_time-st)
+    target_link_libraries(raw_test serializer_serializer-st libs_randomgenerator-st libs_time-st libs_operator-st)
+    target_link_libraries(lst_test serializer_serializer-st libs_randomgenerator-st libs_time-st libs_operator-st)
+    target_link_libraries(vec_test serializer_serializer-st libs_randomgenerator-st libs_time-st libs_operator-st)
+    target_link_libraries(map_test serializer_serializer-st libs_randomgenerator-st libs_time-st libs_operator-st)
+    target_link_libraries(test  raw_test lst_test vec_test map_test serializer_serializer-st 
+                                libs_randomgenerator-st libs_time-st  libs_operator-st)
+    target_link_libraries(serializer_test   test serializer_serializer-st libs_randomgenerator-st 
+                                            libs_time-st  libs_operator-st)
 
     install(
         TARGETS raw_test
@@ -89,13 +91,14 @@ else(STATIC)
     add_library(test SHARED "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx")
 
 
-    target_link_libraries(raw_test serializer_serializer libs_randomgenerator libs_time)
-    target_link_libraries(lst_test serializer_serializer libs_randomgenerator libs_time)
-    target_link_libraries(vec_test serializer_serializer libs_randomgenerator libs_time)
-    target_link_libraries(map_test serializer_serializer libs_randomgenerator libs_time)
+    target_link_libraries(raw_test serializer_serializer libs_randomgenerator libs_time libs_operator)
+    target_link_libraries(lst_test serializer_serializer libs_randomgenerator libs_time libs_operator)
+    target_link_libraries(vec_test serializer_serializer libs_randomgenerator libs_time libs_operator)
+    target_link_libraries(map_test serializer_serializer libs_randomgenerator libs_time libs_operator)
 
-    target_link_libraries(test raw_test lst_test vec_test map_test serializer_serializer libs_time libs_randomgenerator)
-    target_link_libraries(serializer_test serializer_serializer libs_time libs_randomgenerator test)
+    target_link_libraries(test serializer_serializer raw_test lst_test vec_test map_test libs_time 
+                                libs_randomgenerator libs_operator)
+    target_link_libraries(serializer_test serializer_serializer libs_time libs_randomgenerator test libs_operator)
 
     install(
         TARGETS raw_test vec_test lst_test map_test test

@@ -42,12 +42,11 @@ inline size_t properly_size(const unsigned char type){
     if((type&0xf0)==(UNSIGNED|BOOL)||(type&0xf0)==STRING) throw logic_error("Unknow type.");
     if(((type&(FLOATING)))==(FLOATING)) return (size_t)(type^FLOATING)+1;
     return (size_t)(type&0x0f)+1;
-    return 0;
 }
 inline bool isBool(const unsigned char type){return ((type&0xf0)==(UNSIGNED|BOOL));}
-inline bool bool_value(const unsigned char type,bool *to){
-    if((type&0xf0)!=(UNSIGNED|BOOL)||to==nullptr) return false;
-    *to=(bool)(type&0x01);
+template<typename T> inline bool bool_value(const unsigned char type,T &to){
+    if(!isBool(type)||typeid(T)!=typeid(bool)||(&to)==nullptr) return false;
+    to=(bool)(type&0x01);
     return true;
 }
 inline bool is_str(const unsigned char type){return (type&0xf0)==STRING;}

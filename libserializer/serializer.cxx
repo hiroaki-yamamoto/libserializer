@@ -119,10 +119,16 @@ template<typename T> serializer& serializer::operator>>(T &ref){
     this->_in->read(this->buffer,this->buffer_size);
     size_t read_size=this->_in->gcount();
     
+    if(bool_value(this->buffer[0],ref)){
+        this->seek(-read_size+1,SEEK_IN);
+        return (*this);
+    }
+
 #ifdef DEBUG_SERIALIZER
     assert(!is_str(this->buffer[0])&&((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer)));
 #else
     if(is_str(this->buffer[0])){
+        this->seek(-read_size,SEEK_IN);
         if(is_str(this->buffer[0])) throw invalid_argument("The data is string. However, the type of the specified variable to store the data is not string. please specify string-variable.");
     }else if((is_float(this->buffer[0])&&!numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)){
         this->seek(-read_size,SEEK_IN);
@@ -131,14 +137,8 @@ template<typename T> serializer& serializer::operator>>(T &ref){
     }
 #endif
     
-    bool boolbuf;
-    if(bool_value(this->buffer[0],&boolbuf)){
-        ref=boolbuf;
-        this->seek(-read_size+1,SEEK_IN);
-        return (*this);
-    }
-    
     size_t size=properly_size((unsigned char)this->buffer[0]);
+    
 #ifdef DEBUG_SERIALIZER
     assert(size<=sizeof(T));
 #else    
@@ -178,11 +178,11 @@ serializer& serializer::operator>>(string &str){
     //However this is fact that I should provide the alternative. Instead, I use this->_in->read(char_type*,streamsize).
     this->_in->read(this->buffer,1);
 #ifdef DEBUG_SERIALIZER
-    assert(this->in_avail()>0&&is_str((unsigned char)this->buffer[0]));
+    assert(this->in_avail()>0&&is_str(this->buffer[0]));
 #else
-    if(!is_str((unsigned char)this->buffer[0])||this->in_avail()<=0){
+    if(!is_str(this->buffer[0])||this->in_avail()<=0){
         this->seek(-1,SEEK_IN);
-        if(!is_str((unsigned char)this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
+        if(!is_str(this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
         else throw out_of_range("There are no readable data.");
     }
 #endif
@@ -191,34 +191,69 @@ serializer& serializer::operator>>(string &str){
 }
 
 //The instance. I want to use export keyword, but there is a few compiler that supports export keyword.
-template serializer& serializer::operator<<(const float &);
-template serializer& serializer::operator<<(const double &);
-template serializer& serializer::operator<<(const long double &);
 
-template serializer& serializer::operator<<(const bool &);
-template serializer& serializer::operator<<(const char &);
-template serializer& serializer::operator<<(const short &);
-template serializer& serializer::operator<<(const int &);
-template serializer& serializer::operator<<(const long &);
-template serializer& serializer::operator<<(const long long &);
-template serializer& serializer::operator<<(const unsigned char &);
-template serializer& serializer::operator<<(const unsigned short &);
-template serializer& serializer::operator<<(const unsigned int &);
-template serializer& serializer::operator<<(const unsigned long &);
-template serializer& serializer::operator<<(const unsigned long long &);
+#if defined(_WIN32)||defined(_WIN64)
+    template __declspec(dllexport) serializer& serializer::operator<<(const float &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const double &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const long double &);
 
-template serializer& serializer::operator>>(float &);
-template serializer& serializer::operator>>(double &);
-template serializer& serializer::operator>>(long double &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const bool &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const char &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const short &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const int &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const long &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const long long &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const unsigned char &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const unsigned short &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const unsigned int &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const unsigned long &);
+    template __declspec(dllexport) serializer& serializer::operator<<(const unsigned long long &);
 
-template serializer& serializer::operator>>(bool &);
-template serializer& serializer::operator>>(char &);
-template serializer& serializer::operator>>(short &);
-template serializer& serializer::operator>>(int &);
-template serializer& serializer::operator>>(long &);
-template serializer& serializer::operator>>(long long &);
-template serializer& serializer::operator>>(unsigned char &);
-template serializer& serializer::operator>>(unsigned short &);
-template serializer& serializer::operator>>(unsigned int &);
-template serializer& serializer::operator>>(unsigned long &);
-template serializer& serializer::operator>>(unsigned long long &);
+    template __declspec(dllexport) serializer& serializer::operator>>(float &);
+    template __declspec(dllexport) serializer& serializer::operator>>(double &);
+    template __declspec(dllexport) serializer& serializer::operator>>(long double &);
+
+    template __declspec(dllexport) serializer& serializer::operator>>(bool &);
+    template __declspec(dllexport) serializer& serializer::operator>>(char &);
+    template __declspec(dllexport) serializer& serializer::operator>>(short &);
+    template __declspec(dllexport) serializer& serializer::operator>>(int &);
+    template __declspec(dllexport) serializer& serializer::operator>>(long &);
+    template __declspec(dllexport) serializer& serializer::operator>>(long long &);
+    template __declspec(dllexport) serializer& serializer::operator>>(unsigned char &);
+    template __declspec(dllexport) serializer& serializer::operator>>(unsigned short &);
+    template __declspec(dllexport) serializer& serializer::operator>>(unsigned int &);
+    template __declspec(dllexport) serializer& serializer::operator>>(unsigned long &);
+    template __declspec(dllexport) serializer& serializer::operator>>(unsigned long long &);
+#else
+    template serializer& serializer::operator<<(const float &);
+    template serializer& serializer::operator<<(const double &);
+    template serializer& serializer::operator<<(const long double &);
+
+    template serializer& serializer::operator<<(const bool &);
+    template serializer& serializer::operator<<(const char &);
+    template serializer& serializer::operator<<(const short &);
+    template serializer& serializer::operator<<(const int &);
+    template serializer& serializer::operator<<(const long &);
+    template serializer& serializer::operator<<(const long long &);
+    template serializer& serializer::operator<<(const unsigned char &);
+    template serializer& serializer::operator<<(const unsigned short &);
+    template serializer& serializer::operator<<(const unsigned int &);
+    template serializer& serializer::operator<<(const unsigned long &);
+    template serializer& serializer::operator<<(const unsigned long long &);
+
+    template serializer& serializer::operator>>(float &);
+    template serializer& serializer::operator>>(double &);
+    template serializer& serializer::operator>>(long double &);
+
+    template serializer& serializer::operator>>(bool &);
+    template serializer& serializer::operator>>(char &);
+    template serializer& serializer::operator>>(short &);
+    template serializer& serializer::operator>>(int &);
+    template serializer& serializer::operator>>(long &);
+    template serializer& serializer::operator>>(long long &);
+    template serializer& serializer::operator>>(unsigned char &);
+    template serializer& serializer::operator>>(unsigned short &);
+    template serializer& serializer::operator>>(unsigned int &);
+    template serializer& serializer::operator>>(unsigned long &);
+    template serializer& serializer::operator>>(unsigned long long &);
+#endif

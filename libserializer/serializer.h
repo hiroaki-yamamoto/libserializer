@@ -17,7 +17,7 @@ using namespace std;
 
 inline void WRITABLE_REQUIRED(const ostream *out){
 #ifdef DEBUG_SERIALIZER
-    assert(out!=nullptr)
+    assert(out!=nullptr);
 #else
     if(out==nullptr) throw invalid_argument("A writable stream is required.");
 #endif
@@ -25,7 +25,7 @@ inline void WRITABLE_REQUIRED(const ostream *out){
 
 inline void READABLE_REQUIRED(const istream *in){
 #ifdef DEBUG_SERIALIZER
-    assert(in!=nullptr)
+    assert(in!=nullptr);
 #else
     if(in==nullptr) throw invalid_argument("A readable stream is required.");
 #endif
@@ -35,7 +35,11 @@ inline void READABLE_REQUIRED(const istream *in){
   The basis of Serializer.
   @warning This is not Serializer. This class is only the basis of that.
  */
+#if defined(_WIN32)||defined(_WIN64)
+class __declspec(dllexport) serializer_interface{
+#else
 class serializer_interface{
+#endif
     public:
         /*!
           Constructs serializer_interface with the specified istream.
@@ -130,7 +134,7 @@ class serializer_interface{
   @bug Deserializing data is very slow. This problem will be sloved in the future.\n
        Unfortunately, to solve this problem, I need to rewrite the code, so please be patient.
 */
-#if defined(_WIN32)||defined(WIN64)
+#if defined(_WIN32)||defined(_WIN64)
 class __declspec(dllexport) serializer:virtual public serializer_interface{
 #else
 class serializer:virtual public serializer_interface{

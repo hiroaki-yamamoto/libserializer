@@ -7,7 +7,7 @@
 using namespace std;
 
 int main(){
-    generator gen(1000);
+    generator gen(10000);
 #pragma omp parallel sections
     {
 #pragma omp section

@@ -3,7 +3,7 @@ find_package(libserializer REQUIRED)
 find_package(librandomgenerator REQUIRED)
 find_package(codegen REQUIRED)
 find_package(libtime REQUIRED)
-find_package(liboperator)
+find_package(liboperator REQUIRED)
 
 include(generate_cxx.cmake)
 include_directories(AFTER "${serializer_test_BINARY_DIR}/generated")
@@ -53,6 +53,7 @@ add_executable(
 )
 
 if(STATIC)
+    add_dependencies(serializer_test serializer_serializer-st)
     add_library(raw_test STATIC ${raw_sources})
     add_library(lst_test STATIC ${vec_sources})
     add_library(vec_test STATIC ${lst_sources})

@@ -259,9 +259,9 @@ void generator::generate_headers(){
             #endif
                         this->write_test<<";"<<endl;
             header<<
-         #if defined(_WIN32)||defined(_WIN64)
-                         "__declspec(dllexport) "<<
-         #endif
+             #if defined(_WIN32)||defined(_WIN64)
+                             "__declspec(dllexport) "<<
+             #endif
                      this->read_test<<";"<<endl;
             header.close();
         }

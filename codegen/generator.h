@@ -1,7 +1,4 @@
 #pragma once
-#ifndef CMAKE
-#error "You must run with cmake."
-#endif
 
 #include <string>
 #include <vector>
@@ -11,7 +8,7 @@ using namespace std;
 
 class generator{
     public:
-        generator(const size_t=20);
+        generator(const char *,const size_t=20);
         void generate_write_raw();
         void generate_write_vector();
         void generate_write_list();

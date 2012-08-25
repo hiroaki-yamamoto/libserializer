@@ -36,7 +36,7 @@ list(APPEND sources ${raw_sources} ${vec_sources} ${lst_sources} ${map_sources})
 
 add_custom_command(
     OUTPUT  ${sources} "${codegen_working_dir}/write_test.cxx" "${codegen_working_dir}/read_test.cxx"
-    COMMAND codegen
+    COMMAND codegen ARGS ${type_file} ${codegen_working_dir}
     DEPENDS codegen
     COMMENT "Generating test source codes."
     WORKING_DIRECTORY ${codegen_working_dir}

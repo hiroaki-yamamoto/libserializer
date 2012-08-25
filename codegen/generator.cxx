@@ -9,7 +9,8 @@
 #include <omp.h>
 
 using namespace std;
-generator::generator(const size_t array_size){
+
+generator::generator(const char *type_path,const size_t array_size){
     this->array_size=array_size;
     this->test_suffix="_test";
     this->list_suffix="_list";
@@ -40,7 +41,7 @@ generator::generator(const size_t array_size){
     {
 #pragma omp section
         {
-            ifstream types("types.def");
+            ifstream types(type_path);
             types>>this->types;
             types.close();
         }

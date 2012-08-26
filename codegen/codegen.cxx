@@ -25,7 +25,7 @@ inline void cd(const char *dir){
 }
 
 int main(int argc,const char *argv[]){
-    if(argc<3){
+    if(argc!=3){
         cout<<"Usage:"<<argv[0]<<" <File which is written about types.> <OutDir>"<<endl;
         return 1;
     }

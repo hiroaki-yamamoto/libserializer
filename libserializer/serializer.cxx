@@ -182,10 +182,7 @@ serializer& serializer::operator>>(string &str){
 #else
     if(!is_str(this->buffer[0])||this->in_avail()<=0){
         this->seek(-1,SEEK_IN);
-        if(!is_str(this->buffer[0])){
-            cerr<<"Data:"<<hex<<this->buffer[0]<<endl;
-            throw invalid_argument("The data is not string. You have to specify a variable other than string.");
-        }
+        if(!is_str(this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
         else throw out_of_range("There are no readable data.");
     }
 #endif

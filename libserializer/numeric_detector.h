@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <cstddef>
 #include <cassert>
 #include <stdexcept>
@@ -20,6 +21,7 @@ enum type_id:unsigned char{
     FLOATING=0x20,
     STRING=0x10
 };
+
 /*
  If you want to serialize your own class "directly", you have to define type ID other than these.
  However, you don't need to define them if you wrap the class.
@@ -38,16 +40,17 @@ template <typename T> class numeric_detector{
         unsigned char type;
         char *_start,*_end;
 };
+inline bool is_str(const unsigned char type){return (type&0xf0)==STRING;}
+inline bool is_float(const unsigned char type){return (type&0xf0)==FLOATING;}
+inline bool isBool(const unsigned char type){return ((type&0xf0)==(UNSIGNED|BOOL));}
+
 inline size_t properly_size(const unsigned char type){
-    if((type&0xf0)==(UNSIGNED|BOOL)||(type&0xf0)==STRING) throw logic_error("Unknow type.");
-    if(((type&(FLOATING)))==(FLOATING)) return (size_t)(type^FLOATING)+1;
+    if(is_str(type)) throw logic_error("Unknown type.");
+    if((type&0xf0)==FLOATING) return (size_t)(type^FLOATING)+1;
     return (size_t)(type&0x0f)+1;
 }
-inline bool isBool(const unsigned char type){return ((type&0xf0)==(UNSIGNED|BOOL));}
 template<typename T> inline bool bool_value(const unsigned char type,T &to){
-    if(!isBool(type)||typeid(T)!=typeid(bool)||(&to)==nullptr) return false;
+    if(!isBool(type)||(&to)==nullptr) return false;
     to=(bool)(type&0x01);
     return true;
 }
-inline bool is_str(const unsigned char type){return (type&0xf0)==STRING;}
-inline bool is_float(const unsigned char type){return (((type&0xf0)|UNSIGNED)^UNSIGNED)==FLOATING;}

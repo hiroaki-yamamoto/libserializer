@@ -11,12 +11,12 @@ template<typename T> numeric_detector<T>::numeric_detector(const T &value){
 }
 
 template<typename T> unsigned char numeric_detector<T>::properly_type(){
-    if(*this->value>=0) this->type=UNSIGNED;
     if(numeric_limits<T>::is_iec559){
         this->type=FLOATING;
         this->_start=(char *)(this->value);
         this->_end=(char *)(this->value+1);
     }else{
+        if(*this->value>=0) this->type=UNSIGNED;
         if(*this->value==0||*this->value==1){
             this->type|=BOOL|(unsigned char)*this->value;
             return this->type;

@@ -10,9 +10,7 @@ export(TARGETS randomgenerator randomgenerator-st NAMESPACE libs_ FILE librandom
 export(PACKAGE librandomgenerator)
 
 install(TARGETS randomgenerator randomgenerator-st
-        EXPORT  librandomgenerator
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
 install(FILES "randomgenerator.h" DESTINATION "include")
-install(EXPORT librandomgenerator NAMESPACE libs_ DESTINATION share/cmake/Modules FILE Findlibrandomgenerator.cmake)

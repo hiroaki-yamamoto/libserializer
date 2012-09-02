@@ -26,4 +26,3 @@ install(TARGETS codegen
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
-install(EXPORT codegen-export NAMESPACE libserializer_ DESTINATION share/cmake/Modules FILE Findcodegen.cmake)

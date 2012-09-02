@@ -77,7 +77,6 @@ if(STATIC)
                 map_test
                 serializer_test
                 test
-        EXPORT  libserializer_testing_program
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
@@ -103,7 +102,6 @@ else(STATIC)
 
     install(
         TARGETS raw_test vec_test lst_test map_test test
-        EXPORT  libserializer_testing_program
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
@@ -120,10 +118,3 @@ endif(SHOW_TIMEDIFF)
 
 export(TARGETS serializer_test NAMESPACE serializer_ FILE serializer_test-config.cmake)
 export(PACKAGE serializer_test)
-
-install(
-    EXPORT libserializer_testing_program 
-    NAMESPACE serializer_
-    DESTINATION share/cmake/Modules 
-    FILE Findserializer_test.cmake
-)

@@ -12,4 +12,6 @@ SOURCES = \
     endian_detector.cxx \
     numeric_detector.cxx
 
-OTHER_FILES = CMakeLists.txt
+OTHER_FILES  =  CMakeLists.txt \
+                libserializer.vcxproj \
+                libserializer.vcxproj.filters

@@ -12,4 +12,6 @@ SOURCES = codegen.cxx \
           write_list_code.cxx \
           write_map_code.cxx 
 
-OTHER_FILES = CMakeLists.txt
+OTHER_FILES  =  CMakeLists.txt \
+                codegen.vcxproj \
+                codegen.vcxproj.filters

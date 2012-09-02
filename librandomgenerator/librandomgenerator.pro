@@ -4,4 +4,6 @@ INCLUDEPATH = .
 
 HEADERS = randomgenerator.h
 SOURCES = randomgenerator.cxx 
-OTHER_FILES = CMakeLists.txt
+OTHER_FILES  =  CMakeLists.txt \
+                librandomgenerator.vcxproj \
+                librandomgenerator.vcxproj.filters

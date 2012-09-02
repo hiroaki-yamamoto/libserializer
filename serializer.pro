@@ -23,8 +23,9 @@ serializer_test.depends +=  libserializer \
                             codegen \
                             time_lib
 
-OTHER_FILES += CMakeLists.txt \
-               doxygen.cfg \
-               doxygen_mainpage \
-               specification.odt \
-               ReadMe
+OTHER_FILES +=  CMakeLists.txt \
+                doxygen.cfg \
+                doxygen_mainpage \
+                specification.odt \
+                serializer.sln \
+                ReadMe

@@ -5,7 +5,9 @@ INCLUDEPATH = .
 
 SOURCES = serializer_test.cxx 
 
-OTHER_FILES = CMakeLists.txt \
-              generate_cxx.cmake  
+OTHER_FILES =   CMakeLists.txt \
+                generate_cxx.cmake \
+                serializer_test.vcxproj \
+                serializer_test.vcxproj.filters
 
 

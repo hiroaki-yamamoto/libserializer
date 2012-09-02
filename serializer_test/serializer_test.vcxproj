@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C07EAF43-6630-4181-B070-9D1CA3A46BD9}</ProjectGuid>
+    <RootNamespace>serializer_test</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)\generated;$(SolutionDir)\operator;$(SolutionDir)\time_lib;$(SolutionDir)\libserializer;$(SolutionDir)\librandomgenerator;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(OutDir)codegen.exe $(SolutionDir)codegen\types.def $(ProjectDir)\generated</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\generated;$(SolutionDir)\operator;$(SolutionDir)\time_lib;$(SolutionDir)\libserializer;$(SolutionDir)\librandomgenerator;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(OutDir)codegen.exe $(SolutionDir)codegen\types.def $(ProjectDir)\generated</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="generated\read_bool.cxx" />
+    <ClCompile Include="generated\read_char.cxx" />
+    <ClCompile Include="generated\read_int.cxx" />
+    <ClCompile Include="generated\read_long.cxx" />
+    <ClCompile Include="generated\read_long_long.cxx" />
+    <ClCompile Include="generated\read_lst_bool.cxx" />
+    <ClCompile Include="generated\read_lst_char.cxx" />
+    <ClCompile Include="generated\read_lst_int.cxx" />
+    <ClCompile Include="generated\read_lst_long.cxx" />
+    <ClCompile Include="generated\read_lst_long_long.cxx" />
+    <ClCompile Include="generated\read_lst_short.cxx" />
+    <ClCompile Include="generated\read_lst_string.cxx" />
+    <ClCompile Include="generated\read_lst_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_lst_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_lst_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_lst_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_lst_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_bool_bool.cxx" />
+    <ClCompile Include="generated\read_map_bool_char.cxx" />
+    <ClCompile Include="generated\read_map_bool_int.cxx" />
+    <ClCompile Include="generated\read_map_bool_long.cxx" />
+    <ClCompile Include="generated\read_map_bool_long_long.cxx" />
+    <ClCompile Include="generated\read_map_bool_short.cxx" />
+    <ClCompile Include="generated\read_map_bool_string.cxx" />
+    <ClCompile Include="generated\read_map_bool_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_bool_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_bool_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_bool_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_bool_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_char_bool.cxx" />
+    <ClCompile Include="generated\read_map_char_char.cxx" />
+    <ClCompile Include="generated\read_map_char_int.cxx" />
+    <ClCompile Include="generated\read_map_char_long.cxx" />
+    <ClCompile Include="generated\read_map_char_long_long.cxx" />
+    <ClCompile Include="generated\read_map_char_short.cxx" />
+    <ClCompile Include="generated\read_map_char_string.cxx" />
+    <ClCompile Include="generated\read_map_char_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_char_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_char_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_char_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_char_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_int_bool.cxx" />
+    <ClCompile Include="generated\read_map_int_char.cxx" />
+    <ClCompile Include="generated\read_map_int_int.cxx" />
+    <ClCompile Include="generated\read_map_int_long.cxx" />
+    <ClCompile Include="generated\read_map_int_long_long.cxx" />
+    <ClCompile Include="generated\read_map_int_short.cxx" />
+    <ClCompile Include="generated\read_map_int_string.cxx" />
+    <ClCompile Include="generated\read_map_int_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_int_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_int_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_int_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_int_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_long_bool.cxx" />
+    <ClCompile Include="generated\read_map_long_char.cxx" />
+    <ClCompile Include="generated\read_map_long_int.cxx" />
+    <ClCompile Include="generated\read_map_long_long.cxx" />
+    <ClCompile Include="generated\read_map_long_long_bool.cxx" />
+    <ClCompile Include="generated\read_map_long_long_char.cxx" />
+    <ClCompile Include="generated\read_map_long_long_int.cxx" />
+    <ClCompile Include="generated\read_map_long_long_long.cxx" />
+    <ClCompile Include="generated\read_map_long_long_long_long.cxx" />
+    <ClCompile Include="generated\read_map_long_long_short.cxx" />
+    <ClCompile Include="generated\read_map_long_long_string.cxx" />
+    <ClCompile Include="generated\read_map_long_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_long_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_long_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_long_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_long_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_long_short.cxx" />
+    <ClCompile Include="generated\read_map_long_string.cxx" />
+    <ClCompile Include="generated\read_map_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_short_bool.cxx" />
+    <ClCompile Include="generated\read_map_short_char.cxx" />
+    <ClCompile Include="generated\read_map_short_int.cxx" />
+    <ClCompile Include="generated\read_map_short_long.cxx" />
+    <ClCompile Include="generated\read_map_short_long_long.cxx" />
+    <ClCompile Include="generated\read_map_short_short.cxx" />
+    <ClCompile Include="generated\read_map_short_string.cxx" />
+    <ClCompile Include="generated\read_map_short_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_short_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_short_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_short_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_short_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_string_bool.cxx" />
+    <ClCompile Include="generated\read_map_string_char.cxx" />
+    <ClCompile Include="generated\read_map_string_int.cxx" />
+    <ClCompile Include="generated\read_map_string_long.cxx" />
+    <ClCompile Include="generated\read_map_string_long_long.cxx" />
+    <ClCompile Include="generated\read_map_string_short.cxx" />
+    <ClCompile Include="generated\read_map_string_string.cxx" />
+    <ClCompile Include="generated\read_map_string_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_string_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_string_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_string_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_string_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_bool.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_string.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_bool.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_string.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_bool.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_bool.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_string.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_string.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_bool.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_short.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_string.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_short.cxx" />
+    <ClCompile Include="generated\read_string.cxx" />
+    <ClCompile Include="generated\read_test.cxx" />
+    <ClCompile Include="generated\read_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_unsigned_short.cxx" />
+    <ClCompile Include="generated\read_vec_bool.cxx" />
+    <ClCompile Include="generated\read_vec_char.cxx" />
+    <ClCompile Include="generated\read_vec_int.cxx" />
+    <ClCompile Include="generated\read_vec_long.cxx" />
+    <ClCompile Include="generated\read_vec_long_long.cxx" />
+    <ClCompile Include="generated\read_vec_short.cxx" />
+    <ClCompile Include="generated\read_vec_string.cxx" />
+    <ClCompile Include="generated\read_vec_unsigned_char.cxx" />
+    <ClCompile Include="generated\read_vec_unsigned_int.cxx" />
+    <ClCompile Include="generated\read_vec_unsigned_long.cxx" />
+    <ClCompile Include="generated\read_vec_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\read_vec_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_bool.cxx" />
+    <ClCompile Include="generated\write_char.cxx" />
+    <ClCompile Include="generated\write_int.cxx" />
+    <ClCompile Include="generated\write_long.cxx" />
+    <ClCompile Include="generated\write_long_long.cxx" />
+    <ClCompile Include="generated\write_lst_bool.cxx" />
+    <ClCompile Include="generated\write_lst_char.cxx" />
+    <ClCompile Include="generated\write_lst_int.cxx" />
+    <ClCompile Include="generated\write_lst_long.cxx" />
+    <ClCompile Include="generated\write_lst_long_long.cxx" />
+    <ClCompile Include="generated\write_lst_short.cxx" />
+    <ClCompile Include="generated\write_lst_string.cxx" />
+    <ClCompile Include="generated\write_lst_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_lst_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_lst_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_lst_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_lst_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_bool_bool.cxx" />
+    <ClCompile Include="generated\write_map_bool_char.cxx" />
+    <ClCompile Include="generated\write_map_bool_int.cxx" />
+    <ClCompile Include="generated\write_map_bool_long.cxx" />
+    <ClCompile Include="generated\write_map_bool_long_long.cxx" />
+    <ClCompile Include="generated\write_map_bool_short.cxx" />
+    <ClCompile Include="generated\write_map_bool_string.cxx" />
+    <ClCompile Include="generated\write_map_bool_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_bool_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_bool_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_bool_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_bool_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_char_bool.cxx" />
+    <ClCompile Include="generated\write_map_char_char.cxx" />
+    <ClCompile Include="generated\write_map_char_int.cxx" />
+    <ClCompile Include="generated\write_map_char_long.cxx" />
+    <ClCompile Include="generated\write_map_char_long_long.cxx" />
+    <ClCompile Include="generated\write_map_char_short.cxx" />
+    <ClCompile Include="generated\write_map_char_string.cxx" />
+    <ClCompile Include="generated\write_map_char_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_char_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_char_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_char_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_char_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_int_bool.cxx" />
+    <ClCompile Include="generated\write_map_int_char.cxx" />
+    <ClCompile Include="generated\write_map_int_int.cxx" />
+    <ClCompile Include="generated\write_map_int_long.cxx" />
+    <ClCompile Include="generated\write_map_int_long_long.cxx" />
+    <ClCompile Include="generated\write_map_int_short.cxx" />
+    <ClCompile Include="generated\write_map_int_string.cxx" />
+    <ClCompile Include="generated\write_map_int_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_int_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_int_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_int_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_int_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_long_bool.cxx" />
+    <ClCompile Include="generated\write_map_long_char.cxx" />
+    <ClCompile Include="generated\write_map_long_int.cxx" />
+    <ClCompile Include="generated\write_map_long_long.cxx" />
+    <ClCompile Include="generated\write_map_long_long_bool.cxx" />
+    <ClCompile Include="generated\write_map_long_long_char.cxx" />
+    <ClCompile Include="generated\write_map_long_long_int.cxx" />
+    <ClCompile Include="generated\write_map_long_long_long.cxx" />
+    <ClCompile Include="generated\write_map_long_long_long_long.cxx" />
+    <ClCompile Include="generated\write_map_long_long_short.cxx" />
+    <ClCompile Include="generated\write_map_long_long_string.cxx" />
+    <ClCompile Include="generated\write_map_long_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_long_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_long_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_long_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_long_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_long_short.cxx" />
+    <ClCompile Include="generated\write_map_long_string.cxx" />
+    <ClCompile Include="generated\write_map_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_short_bool.cxx" />
+    <ClCompile Include="generated\write_map_short_char.cxx" />
+    <ClCompile Include="generated\write_map_short_int.cxx" />
+    <ClCompile Include="generated\write_map_short_long.cxx" />
+    <ClCompile Include="generated\write_map_short_long_long.cxx" />
+    <ClCompile Include="generated\write_map_short_short.cxx" />
+    <ClCompile Include="generated\write_map_short_string.cxx" />
+    <ClCompile Include="generated\write_map_short_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_short_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_short_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_short_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_short_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_string_bool.cxx" />
+    <ClCompile Include="generated\write_map_string_char.cxx" />
+    <ClCompile Include="generated\write_map_string_int.cxx" />
+    <ClCompile Include="generated\write_map_string_long.cxx" />
+    <ClCompile Include="generated\write_map_string_long_long.cxx" />
+    <ClCompile Include="generated\write_map_string_short.cxx" />
+    <ClCompile Include="generated\write_map_string_string.cxx" />
+    <ClCompile Include="generated\write_map_string_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_string_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_string_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_string_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_string_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_bool.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_string.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_bool.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_string.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_bool.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_bool.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_string.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_string.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_bool.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_short.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_string.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_short.cxx" />
+    <ClCompile Include="generated\write_string.cxx" />
+    <ClCompile Include="generated\write_test.cxx" />
+    <ClCompile Include="generated\write_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_unsigned_short.cxx" />
+    <ClCompile Include="generated\write_vec_bool.cxx" />
+    <ClCompile Include="generated\write_vec_char.cxx" />
+    <ClCompile Include="generated\write_vec_int.cxx" />
+    <ClCompile Include="generated\write_vec_long.cxx" />
+    <ClCompile Include="generated\write_vec_long_long.cxx" />
+    <ClCompile Include="generated\write_vec_short.cxx" />
+    <ClCompile Include="generated\write_vec_string.cxx" />
+    <ClCompile Include="generated\write_vec_unsigned_char.cxx" />
+    <ClCompile Include="generated\write_vec_unsigned_int.cxx" />
+    <ClCompile Include="generated\write_vec_unsigned_long.cxx" />
+    <ClCompile Include="generated\write_vec_unsigned_long_long.cxx" />
+    <ClCompile Include="generated\write_vec_unsigned_short.cxx" />
+    <ClCompile Include="serializer_test.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\librandomgenerator\librandomgenerator.vcxproj">
+      <Project>{911bd0d4-0e53-428c-9746-4d1aaf82008f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libserializer\libserializer.vcxproj">
+      <Project>{f7409a40-4d3e-44f7-91c1-4c83b5e2653f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\operator\operator.vcxproj">
+      <Project>{bc728e5d-affb-41a1-925b-38bb0946ad93}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\time_lib\time_lib.vcxproj">
+      <Project>{3aa1f0e9-6085-463c-a007-a60a522d5472}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="generated\test.h" />
+    <ClInclude Include="generated\test_internal.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

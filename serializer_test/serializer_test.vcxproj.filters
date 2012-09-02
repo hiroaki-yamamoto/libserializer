@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\generated">
+      <UniqueIdentifier>{507a4b65-3f4a-427e-824d-f6a498cd373b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated">
+      <UniqueIdentifier>{fc53c930-1ff5-4154-a7c7-57b5dafdb704}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="serializer_test.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_lst_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_bool_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_char_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_int_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_short_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_string_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_char_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_int_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_map_unsigned_short_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_test.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\read_vec_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_lst_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_bool_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_char_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_int_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_short_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_string_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_char_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_int_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_long_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_map_unsigned_short_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_test.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_bool.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_string.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_unsigned_char.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_unsigned_int.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_unsigned_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_unsigned_long_long.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\write_vec_unsigned_short.cxx">
+      <Filter>Source Files\generated</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="generated\test.h">
+      <Filter>Header Files\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="generated\test_internal.h">
+      <Filter>Header Files\generated</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

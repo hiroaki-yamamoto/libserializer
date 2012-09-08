@@ -16,18 +16,22 @@
 using namespace std;
 
 inline void WRITABLE_REQUIRED(const ostream *out){
-#ifdef DEBUG_SERIALIZER
-    assert(out!=nullptr);
-#else
-    if(out==nullptr) throw invalid_argument("A writable stream is required.");
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(out!=nullptr);
+    #else
+        if(out==nullptr) throw invalid_argument("A writable stream is required.");
+    #endif
 #endif
 }
 
 inline void READABLE_REQUIRED(const istream *in){
-#ifdef DEBUG_SERIALIZER
-    assert(in!=nullptr);
-#else
-    if(in==nullptr) throw invalid_argument("A readable stream is required.");
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(in!=nullptr);
+    #else
+        if(in==nullptr) throw invalid_argument("A readable stream is required.");
+    #endif
 #endif
 }
 

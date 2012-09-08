@@ -13,5 +13,6 @@ SOURCES = \
     numeric_detector.cxx
 
 OTHER_FILES  =  CMakeLists.txt \
+                Findlibserializer.cmake \
                 libserializer.vcxproj \
                 libserializer.vcxproj.filters

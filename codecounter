@@ -1,2 +1,2 @@
 #!/bin/bash
-wc -l $(find . -path ./build -prune -o -name \*.cxx -print -o -name \*.h -print -name \*.res -print -o -name \*.ui -print -o -name \*.cpp -print -o -name \*.hxx -print -o -name \*.hpp -print -o -name \*.C -print -o -name \*.txt -print)
+wc -l $(find . -path ./build -prune -o -name \*.cxx -print -o -name \*.h -print -name \*.res -print -o -name \*.ui -print -o -name \*.cpp -print -o -name \*.hxx -print -o -name \*.hpp -print -o -name \*.C -print -o -name \*.txt -print -o -name \*.cmake -print)

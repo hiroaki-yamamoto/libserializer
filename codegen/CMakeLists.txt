@@ -4,6 +4,8 @@ add_definitions(-DCMAKE)
 
 find_package(OpenMP REQUIRED)
 
+include_directories(${CURRENT_SOURCE_DIR})
+
 add_executable(codegen
     "codegen.cxx"
     "generator.cxx"
@@ -22,7 +24,8 @@ export(TARGETS codegen NAMESPACE libserializer_ FILE codegen-config.cmake)
 export(PACKAGE codegen)
 
 install(TARGETS codegen
-        EXPORT  codegen-export
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Findcodegen.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules)

@@ -21,11 +21,13 @@ void serializer_interface::stream(ostream &out){this->_out=&out;}
 void serializer_interface::stream(iostream &io){
     this->_in=dynamic_cast<istream *>(&io);
     this->_out=dynamic_cast<ostream *>(&io);
-#ifdef DEBUG_SERIALIZER
-    assert(this->_in!=nullptr||this->_out!=nullptr);
-#else
-    if(this->_in==nullptr&&this->_out==nullptr)
-        throw invalid_argument("Casting iostream to istream and ostream is failed.");
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(this->_in!=nullptr||this->_out!=nullptr);
+    #else
+        if(this->_in==nullptr&&this->_out==nullptr)
+            throw invalid_argument("Casting iostream to istream and ostream is failed.");
+    #endif
 #endif
     this->setSize();
 }
@@ -110,10 +112,12 @@ template<typename T> serializer& serializer::operator<<(const T &value){
 }
 template<typename T> serializer& serializer::operator>>(T &ref){
     READABLE_REQUIRED(this->_in);
-#ifdef DEBUG_SERIALIZER
-    assert(this->in_avail()>0);
-#else
-    if(this->in_avail()<=0) throw out_of_range("There are no readable data.");
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(this->in_avail()>0);
+    #else
+        if(this->in_avail()<=0) throw out_of_range("There are no readable data.");
+    #endif
 #endif
     
     this->_in->read(this->buffer,this->buffer_size);
@@ -124,28 +128,31 @@ template<typename T> serializer& serializer::operator>>(T &ref){
         return (*this);
     }
 
-#ifdef DEBUG_SERIALIZER
-    assert(!is_str(this->buffer[0])&&((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer)));
-#else
-    if(is_str(this->buffer[0])){
-        this->seek(-read_size,SEEK_IN);
-        if(is_str(this->buffer[0])) throw invalid_argument("The data is string. However, the type of the specified variable to store the data is not string. please specify string-variable.");
-    }else if((is_float(this->buffer[0])&&!numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)){
-        this->seek(-read_size,SEEK_IN);
-        throw invalid_argument((numeric_limits<T>::is_iec559)?"The data type is float. However, the type of the specified variable to store the data is not float. please specify float-variable.":
-                                                              "The data type is integer. However, the type of the specified variable to store the data is not integer. please specify integer-variable.");
-    }
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(!is_str(this->buffer[0])&&((is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_integer)));
+    #else
+        if(is_str(this->buffer[0])){
+            this->seek(-read_size,SEEK_IN);
+            if(is_str(this->buffer[0])) throw invalid_argument("The data is string. However, the type of the specified variable to store the data is not string. please specify string-variable.");
+        }else if((is_float(this->buffer[0])&&!numeric_limits<T>::is_iec559)||(!is_float(this->buffer[0])&&numeric_limits<T>::is_iec559)){
+            this->seek(-read_size,SEEK_IN);
+            throw invalid_argument((numeric_limits<T>::is_iec559)?"The data type is float. However, the type of the specified variable to store the data is not float. please specify float-variable.":
+                                                                  "The data type is integer. However, the type of the specified variable to store the data is not integer. please specify integer-variable.");
+        }
+    #endif
 #endif
     
     size_t size=properly_size((unsigned char)this->buffer[0]);
-    
-#ifdef DEBUG_SERIALIZER
-    assert(size<=sizeof(T));
-#else    
-    if(size>sizeof(T)){
-        this->seek(-read_size,SEEK_IN);
-        throw invalid_argument("The size of the specified variable is less than the size of read data.");
-    }
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(size<=sizeof(T));
+    #else    
+        if(size>sizeof(T)){
+            this->seek(-read_size,SEEK_IN);
+            throw invalid_argument("The size of the specified variable is less than the size of read data.");
+        }
+    #endif
 #endif
     this->seek(1+size-read_size,SEEK_IN);
     ref=0;
@@ -177,14 +184,16 @@ serializer& serializer::operator>>(string &str){
     //I'm not sure if it is a bug that the pointer of istream is not incremented when using this->_in->get().
     //However this is fact that I should provide the alternative. Instead, I use this->_in->read(char_type*,streamsize).
     this->_in->read(this->buffer,1);
-#ifdef DEBUG_SERIALIZER
-    assert(this->in_avail()>0&&is_str(this->buffer[0]));
-#else
-    if(!is_str(this->buffer[0])||this->in_avail()<=0){
-        this->seek(-1,SEEK_IN);
-        if(!is_str(this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
-        else throw out_of_range("There are no readable data.");
-    }
+#ifndef NO_EXCEPTION
+    #ifdef DEBUG_SERIALIZER
+        assert(this->in_avail()>0&&is_str(this->buffer[0]));
+    #else
+        if(!is_str(this->buffer[0])||this->in_avail()<=0){
+            this->seek(-1,SEEK_IN);
+            if(!is_str(this->buffer[0])) throw invalid_argument("The data is not string. You have to specify a variable other than string.");
+            else throw out_of_range("There are no readable data.");
+        }
+    #endif
 #endif
     getline(*this->_in,str,'\0');
     return (*this);

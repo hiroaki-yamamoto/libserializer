@@ -6,7 +6,7 @@ find_package(libtime REQUIRED)
 find_package(liboperator REQUIRED)
 
 include(generate_cxx.cmake)
-include_directories(AFTER "${serializer_test_BINARY_DIR}/generated")
+include_directories(AFTER "${serializer_test_BINARY_DIR}/generated" ${CMAKE_CURRENT_SOURCE_DIR})
 
 file(MAKE_DIRECTORY ${codegen_working_dir})
 
@@ -108,6 +108,9 @@ else(STATIC)
     )
     message(STATUS "The test program will linked dinamically.")
 endif(STATIC)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Findserializer_test.cmake 
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules)
 
 if(SHOW_TIMEDIFF)
     add_definitions(-DSHOW_TIMEDIFF)

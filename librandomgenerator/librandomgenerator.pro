@@ -5,5 +5,6 @@ INCLUDEPATH = .
 HEADERS = randomgenerator.h
 SOURCES = randomgenerator.cxx 
 OTHER_FILES  =  CMakeLists.txt \
+                Findlibrandomgenerator.cmake \
                 librandomgenerator.vcxproj \
                 librandomgenerator.vcxproj.filters

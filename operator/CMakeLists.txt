@@ -4,6 +4,8 @@ set(src
     "tab_count.cxx"
 )
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 add_library(${name} SHARED ${src})
 add_library(${name}-st STATIC ${src})
 
@@ -17,3 +19,5 @@ install(TARGETS ${name} ${name}-st
         LIBRARY DESTINATION "lib"
         ARCHIVE DESTINATION "lib")
 install(FILES "operator.hxx" DESTINATION "include/libserializer")
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Findoperator.cmake 
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules)

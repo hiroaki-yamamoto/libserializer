@@ -1,6 +1,6 @@
 set(libserializer_LIBRARIES "serializer")
 set(libserializer_HEADERS "serializer.h" "endian_detector.h" "numeric_detector.h")
-set(MODULE_VERSION 1.0)
+set(libserializer_VERSION 1.0)
 
 foreach(header IN LISTS libserializer_HEADERS)
     find_path(INTERNAL_HEADERS_DIR "${header}")

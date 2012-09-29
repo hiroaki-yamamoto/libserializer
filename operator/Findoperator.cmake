@@ -1,6 +1,6 @@
 set(operator_LIBRARIES "operator")
 set(operator_HEADERS "operator.h")
-set(MODULE_VERSION 1.0)
+set(operator_VERSION 1.0)
 
 foreach(header IN LISTS operator_HEADERS)
     find_path(INTERNAL_HEADERS_DIR "${header}")

@@ -1,6 +1,6 @@
 set(librandomgenerator_LIBRARIES "randomgenerator")
 set(librandomgenerator_HEADERS "randomgenerator.h")
-set(MODULE_VERSION 1.0)
+set(librandomgenerator_VERSION 1.0)
 
 foreach(header IN LISTS librandomgenerator_HEADERS)
     find_path(INTERNAL_HEADERS_DIR "${header}")

@@ -1,6 +1,6 @@
 set(time_lib_LIBRARIES "time_lib")
 set(time_lib_HEADERS "time_lib.h")
-set(MODULE_VERSION 1.0)
+set(time_lib_VERSION 1.0)
 
 foreach(header IN LISTS time_lib_HEADERS)
     find_path(INTERNAL_HEADERS_DIR "${header}")

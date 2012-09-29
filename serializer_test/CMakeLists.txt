@@ -2,7 +2,7 @@ project(serializer_test CXX)
 find_package(libserializer REQUIRED)
 find_package(librandomgenerator REQUIRED)
 find_package(codegen REQUIRED)
-find_package(libtime REQUIRED)
+find_package(time_lib REQUIRED)
 find_package(liboperator REQUIRED)
 
 include(generate_cxx.cmake)

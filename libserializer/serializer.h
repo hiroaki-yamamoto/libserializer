@@ -11,8 +11,8 @@
 #endif
 #include<type_traits>
 
-#include <endian_detector.h>
-#include <numeric_detector.h>
+#include <libserializer/endian_detector.h>
+#include <libserializer/numeric_detector.h>
 using namespace std;
 
 inline void WRITABLE_REQUIRED(const ostream *out){

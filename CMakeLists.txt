@@ -3,7 +3,7 @@ project(serializer CXX)
 
 find_package(Doxygen COMPONENTS)
 
-include_directories(AFTER ${CMAKE_CURRENT_SOURCE_DIR}/libserializer)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libserializer ${CMAKE_CURRENT_SOURCE_DIR})
 
 option(WITHOUT_UNIX_MODE "Builds without unix mode." OFF)
 option(BUILD_TEST "Builds test program." OFF)

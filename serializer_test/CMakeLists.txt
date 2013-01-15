@@ -1,5 +1,5 @@
 project(serializer_test CXX)
-find_package(libserializer REQUIRED)
+find_package(libserializer REQUIRED NO_MODULE)
 find_package(librandomgenerator REQUIRED)
 find_package(codegen REQUIRED)
 find_package(time_lib REQUIRED)

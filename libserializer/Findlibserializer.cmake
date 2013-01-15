@@ -22,7 +22,6 @@ foreach(library IN LISTS libserializer_LIBRARIES)
     unset(INTERNAL_LIBRARIES_DIR CACHE)
 endforeach(library)
 
-include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(libserializer
     REQUIRED_VARS 
         libserializer_INCLUDE_DIR libserializer_LIBRARIES_DIR

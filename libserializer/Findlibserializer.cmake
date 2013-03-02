@@ -1,6 +1,7 @@
 set(libserializer_LIBRARIES "serializer")
 set(libserializer_HEADERS "serializer.h" "endian_detector.h" "numeric_detector.h")
 set(libserializer_VERSION 1.0)
+find_package(PackageHandleStandardArgs REQUIRED)
 
 foreach(header IN LISTS libserializer_HEADERS)
     find_path(INTERNAL_HEADERS_DIR ${header}

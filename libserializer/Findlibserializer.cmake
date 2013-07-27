@@ -5,7 +5,7 @@ find_package(PackageHandleStandardArgs REQUIRED)
 
 foreach(header IN LISTS libserializer_HEADERS)
     find_path(INTERNAL_HEADERS_DIR ${header}
-                HINTS ${CMAKE_INCLUDE_PATH}/libserializer /usr/include/libserializer /usr/local/include/libserializer
+                HINTS /usr/include/libserializer /usr/local/include/libserializer
     )
     list(FIND libserializer_INCLUDE_DIR ${INTERNAL_HEADERS_DIR} result)
     if(result EQUAL -1)

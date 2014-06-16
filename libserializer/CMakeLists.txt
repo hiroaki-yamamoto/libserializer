@@ -21,5 +21,5 @@ install(TARGETS serializer serializer-st
         LIBRARY DESTINATION "lib"
         ARCHIVE DESTINATION "lib")
 install(FILES "serializer.h" "endian_detector.h" "numeric_detector.h" DESTINATION "include/libserializer")
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Findlibserializer.cmake 
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/libserializerConfig.cmake 
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/libserializer)
